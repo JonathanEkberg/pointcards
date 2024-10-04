@@ -8,15 +8,17 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import pointcards.args.GameSettings;
-import pointcards.exceptions.UnimplementedGameModeException;
+import pointcards.game.Bot;
 import pointcards.game.IGame;
 import pointcards.game.Player;
+import pointcards.io.input.IInput;
 import pointcards.io.input.LocalConsoleInput;
 import pointcards.io.input.RemoteInput;
+import pointcards.io.output.IOutput;
 import pointcards.io.output.LocalConsoleOutput;
 import pointcards.io.output.RemoteOutput;
 import pointcards.network.Client;
+import pointcards.settings.GameSettings;
 import pointcards.utils.Logger;
 
 public class GameServer {
@@ -34,36 +36,41 @@ public class GameServer {
     }
 
     public void run() {
-        init();
-
-        for (var client : clients) {
-            try {
-                client.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        initGame();
+        runGame();
     }
 
-    private void init() {
+    private void initGame() {
         try {
             List<Player> players = new ArrayList<>();
-            // The server player
+            // The server player. Always at least one.
             players.add(new Player(new LocalConsoleInput(), new LocalConsoleOutput()));
 
             // Remote players (if any)
             if (args.getNumberOfPlayers() > 1) {
                 connectClients(args.getNumberOfPlayers() - 1);
 
-                for (var client : clients) {
-                    var input = new RemoteInput(client);
-                    var output = new RemoteOutput(client);
-                    var player = new Player(input, output);
+                for (Client client : clients) {
+                    IInput input = new RemoteInput(client);
+                    IOutput output = new RemoteOutput(client);
+                    Player player = new Player(input, output);
                     players.add(player);
                 }
             }
 
-            game.init(players);
+            if (args.getNumberOfBots() == 0) {
+                game.init(players);
+                return;
+            }
+
+            List<Bot> bots = new ArrayList<>();
+
+            for (int i = 0; i < args.getNumberOfBots(); i++) {
+                var bot = new Bot();
+                bots.add(bot);
+            }
+
+            game.init(players, bots);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,5 +87,9 @@ public class GameServer {
             var client = new Client(inFromClient, outToClient);
             clients.add(client);
         }
+    }
+
+    private void runGame() {
+        game.run();
     }
 }

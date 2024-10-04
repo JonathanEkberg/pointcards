@@ -1,7 +1,5 @@
 package pointcards.game;
 
-import java.util.List;
-
 import pointcards.io.input.IInput;
 import pointcards.io.output.IOutput;
 

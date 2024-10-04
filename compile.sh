@@ -1,2 +1,2 @@
 #!/bin/bash
-javac -d out -sourcepath src src/cardgame/Main.java
+javac -d out -sourcepath src src/pointcards/Main.java

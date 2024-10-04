@@ -1,57 +1,46 @@
 package pointcards;
 
-import pointcards.args.Args;
-import pointcards.args.GameSettings;
-import pointcards.args.OptionalGameSettings;
-import pointcards.game.GameFactory;
-import pointcards.game.GameMode;
 import pointcards.game.IGame;
+import pointcards.game.IGameFactory;
+import pointcards.game.pointsalad.PSGameFactory;
 import pointcards.io.input.IInput;
 import pointcards.io.input.LocalConsoleInput;
+import pointcards.settings.GameSettings;
+import pointcards.settings.OptionalGameSettings;
+import pointcards.settings.ProgramSettings;
+import pointcards.utils.Args;
 import pointcards.utils.Logger;
 
 public class Main {
-    public static void main(final String[] arguments) {
-        final var args = Args.parseArgs(arguments);
-        Logger.debug(args);
+    public static void main(final String[] args) {
+        final IGameFactory factory = new PSGameFactory();
+        final var settings = Args.parseArgs(args);
+        Logger.debug(settings);
 
-        if (args.getIsServer()) {
-            runGameServer(args);
+        if (settings.getIsServer()) {
+            runGameServer(settings, factory);
         } else {
-            runGameClient(args);
+            runGameClient(settings);
         }
     }
 
-    private static void runGameServer(final OptionalGameSettings args) {
+    private static void runGameServer(final OptionalGameSettings optionalGameSettings, final IGameFactory factory) {
         try {
-            IInput input = new LocalConsoleInput();
+            final IInput input = new LocalConsoleInput();
+            final IGame game = factory.createGame();
+            final GameSettings settings = game.setGameSettings(optionalGameSettings, input);
 
-            if (args.getGameMode().isEmpty()) {
-                String[] gameModeChoices = new String[] { GameMode.POINTSALAD.name() };
-
-                if (gameModeChoices.length == 1) {
-                    args.setGameMode(GameMode.valueOf(gameModeChoices[0]));
-                } else {
-                    var choice = input.queryChoice("Choose game mode", gameModeChoices);
-                    args.setGameMode(GameMode.valueOf(choice));
-                }
-            }
-
-            final IGame game = GameFactory.createGame(args.getGameMode().get());
-            final GameSettings settings = game.setGameSettings(args, input);
-
+            // Run the game server with the game and settings valid for the game.
             final var server = new GameServer(game, settings);
             server.run();
-        } catch (
-
-        Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static void runGameClient(final OptionalGameSettings argValues) {
+    private static void runGameClient(final ProgramSettings programSettings) {
         try {
-            new GameClient(argValues.getHostname(), argValues.getPort());
+            new GameClient(programSettings.getHostname(), programSettings.getPort());
         } catch (Exception e) {
             e.printStackTrace();
         }

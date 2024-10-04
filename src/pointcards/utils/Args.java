@@ -1,6 +1,6 @@
-package pointcards.args;
+package pointcards.utils;
 
-import pointcards.game.GameMode;
+import pointcards.settings.OptionalGameSettings;
 
 public class Args {
     public static OptionalGameSettings parseArgs(String[] args) {
@@ -9,7 +9,6 @@ public class Args {
         int port = 3000;
         Integer numberOfPlayers = null;
         Integer numberOfBots = null;
-        GameMode gameMode = null;
 
         for (int i = 0; i < args.length; i++) {
             if (args[i].toLowerCase().equals("-type")) {
@@ -22,11 +21,9 @@ public class Args {
                 hostname = args[i + 1];
             } else if (args[i].toLowerCase().equals("-port")) {
                 port = Integer.parseInt(args[i + 1]);
-            } else if (args[i].toLowerCase().equals("-gameType")) {
-                gameMode = GameMode.valueOf(args[i + 1].toLowerCase());
             }
         }
 
-        return new OptionalGameSettings(gameMode, isServer, hostname, port, numberOfPlayers, numberOfBots);
+        return new OptionalGameSettings(isServer, hostname, port, numberOfPlayers, numberOfBots);
     }
 }

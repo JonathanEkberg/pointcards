@@ -1,9 +1,9 @@
-package pointcards.args;
+package pointcards.settings;
 
 public class ProgramSettings {
-    protected boolean isServer;
-    protected String hostname;
-    protected int port;
+    protected final boolean isServer;
+    protected final String hostname;
+    protected final int port;
 
     public ProgramSettings(boolean isServer, String hostname, int port) {
         this.isServer = isServer;
@@ -12,7 +12,7 @@ public class ProgramSettings {
     }
 
     public String toString() {
-        return "Values{" +
+        return "ProgramSettings{" +
                 "isServer=" + isServer +
                 ", hostname='" + hostname + '\'' +
                 ", port=" + port +
@@ -29,17 +29,5 @@ public class ProgramSettings {
 
     public int getPort() {
         return port;
-    }
-
-    public void setIsServer(boolean isServer) {
-        this.isServer = isServer;
-    }
-
-    public void setHostname(String hostname) {
-        this.hostname = hostname;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
     }
 }
