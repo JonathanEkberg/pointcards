@@ -8,10 +8,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import pointcards.game.Bot;
 import pointcards.game.IGame;
 import pointcards.game.IGameFactory;
-import pointcards.game.entities.Bot;
-import pointcards.game.entities.Player;
+import pointcards.game.Player;
 import pointcards.io.input.IInput;
 import pointcards.io.input.LocalConsoleInput;
 import pointcards.io.input.RemoteInput;
