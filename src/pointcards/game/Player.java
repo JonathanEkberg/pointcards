@@ -4,10 +4,10 @@ import pointcards.io.input.IInput;
 import pointcards.io.output.IOutput;
 
 public class Player {
-    IInput input;
-    IOutput output;
+    final IInput input;
+    final IOutput output;
 
-    public Player(IInput input, IOutput output) {
+    public Player(final IInput input, final IOutput output) {
         this.input = input;
         this.output = output;
     }

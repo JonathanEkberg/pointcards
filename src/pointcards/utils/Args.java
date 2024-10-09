@@ -9,6 +9,7 @@ public class Args {
         int port = 3000;
         Integer numberOfPlayers = null;
         Integer numberOfBots = null;
+        String manifestPath = null;
 
         for (int i = 0; i < args.length; i++) {
             if (args[i].toLowerCase().equals("-type")) {
@@ -24,6 +25,14 @@ public class Args {
             }
         }
 
-        return new OptionalGameSettings(isServer, hostname, port, numberOfPlayers, numberOfBots);
+        if (isServer) {
+            for (int i = 0; i < args.length; i++) {
+                if (args[i].toLowerCase().equals("-manifestPath")) {
+                    manifestPath = new String(args[i + 1]);
+                }
+            }
+        }
+
+        return new OptionalGameSettings(isServer, hostname, port, numberOfPlayers, numberOfBots, manifestPath);
     }
 }
