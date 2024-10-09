@@ -2,45 +2,30 @@ package pointcards.io.input;
 
 import java.io.IOException;
 
-import pointcards.network.Client;
+import pointcards.network.INetworkClient;
+import pointcards.network.tcp.TCPClient;
 
 public class RemoteInput implements IInput {
-    private Client client;
+    private INetworkClient client;
 
-    public RemoteInput(Client client) {
+    public RemoteInput(INetworkClient client) {
         this.client = client;
     }
 
     @Override
     public String queryString(String message) {
-        try {
-            this.client.sendMessage(message + ": ");
-            return this.client.receiveMessage();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
+        this.client.send(message + ": ");
+        return this.client.receive();
     }
 
     @Override
     public char queryChar(String message) {
-        try {
-            this.client.sendMessage(message + ": ");
-            String response = this.client.receiveMessage();
+        this.client.send(message + ": ");
+        String response = this.client.receive();
 
-            if (response.length() == 1) {
-                return response.charAt(0);
-            } else {
-                return '\0';
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return '\0';
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        if (response.length() == 1) {
+            return response.charAt(0);
+        } else {
             return '\0';
         }
     }

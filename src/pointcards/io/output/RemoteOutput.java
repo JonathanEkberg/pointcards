@@ -1,21 +1,15 @@
 package pointcards.io.output;
 
-import java.io.IOException;
-
-import pointcards.network.Client;
+import pointcards.network.INetworkClient;
 
 public class RemoteOutput implements IOutput {
-    private Client client;
+    private INetworkClient client;
 
-    public RemoteOutput(Client client) {
+    public RemoteOutput(INetworkClient client) {
         this.client = client;
     }
 
     public void send(String message) {
-        try {
-            client.sendMessage(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        client.send(message);
     }
 }
