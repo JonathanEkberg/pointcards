@@ -7,12 +7,15 @@ import org.junit.Test;
 
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Veggie;
-import pointcards.game.pointsalad.criteria.CriteriaFewest;
-import pointcards.game.pointsalad.criteria.CriteriaMost;
 import pointcards.game.pointsalad.criteria.ICriteria;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaEach;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaEven;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaFewest;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaMost;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaOdd;
 
 public class TestCriteria {
-    private class CriteriaTest {
+    private class SingleCriteriaTest {
         private static final int OPPONENT_COUNT = 3;
         private final String testName;
         private final ICriteria criteria;
@@ -20,7 +23,7 @@ public class TestCriteria {
         private final int ownerCardAmount;
         private final int opponentsCardAmount;
 
-        public CriteriaTest(String testName, ICriteria criteria, int expectedPoints, int ownerCardAmount,
+        public SingleCriteriaTest(String testName, ICriteria criteria, int expectedPoints, int ownerCardAmount,
                 int opponentsCardAmount) {
             this.testName = testName;
             this.criteria = criteria;
@@ -43,16 +46,22 @@ public class TestCriteria {
 
     @Test
     public void testCriterias() {
-        CriteriaTest[] tests = new CriteriaTest[] {
+        SingleCriteriaTest[] tests = new SingleCriteriaTest[] {
                 // Most cards
-                new CriteriaTest("[MOST]: Does not have most", new CriteriaMost(Veggie.CARROT, 3), 0, 1, 3),
-                new CriteriaTest("[MOST]: Has most", new CriteriaMost(Veggie.CARROT, 3), 3, 3, 2),
+                new SingleCriteriaTest("[MOST]: Does not have most", new CriteriaMost(Veggie.CARROT, 3), 0, 1, 3),
+                new SingleCriteriaTest("[MOST]: Has most", new CriteriaMost(Veggie.CARROT, 3), 3, 3, 2),
                 // Fewest cards
-                new CriteriaTest("[FEWEST]: Does not have fewest", new CriteriaFewest(Veggie.CARROT, 3), 0, 3, 1),
-                new CriteriaTest("[FEWEST]: Has fewest", new CriteriaFewest(Veggie.CARROT, 3), 3, 1, 3),
+                new SingleCriteriaTest("[FEWEST]: Does not have fewest", new CriteriaFewest(Veggie.CARROT, 3), 0, 3, 1),
+                new SingleCriteriaTest("[FEWEST]: Has fewest", new CriteriaFewest(Veggie.CARROT, 3), 3, 1, 3),
+                // Even cards
+                new SingleCriteriaTest("[EVEN]: Does not have even", new CriteriaEven(Veggie.CARROT, 3), 0, 3, 0),
+                new SingleCriteriaTest("[EVEN]: Has even", new CriteriaEven(Veggie.CARROT, 3), 3, 2, 0),
+                // Odd cards
+                new SingleCriteriaTest("[ODD]: Does not have odd", new CriteriaOdd(Veggie.CARROT, 3), 0, 2, 0),
+                new SingleCriteriaTest("[ODD]: Has odd", new CriteriaOdd(Veggie.CARROT, 3), 3, 3, 0),
         };
 
-        for (CriteriaTest test : tests) {
+        for (SingleCriteriaTest test : tests) {
             test.run();
         }
     }

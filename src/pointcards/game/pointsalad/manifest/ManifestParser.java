@@ -1,0 +1,36 @@
+package pointcards.game.pointsalad.manifest;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import pointcards.game.pointsalad.Card;
+import pointcards.game.pointsalad.Veggie;
+import pointcards.game.pointsalad.criteria.Criterias;
+import pointcards.game.pointsalad.criteria.ICriteria;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaFewest;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaMost;
+
+public class ManifestParser {
+    private final CardParser cardParser;
+
+    public ManifestParser(JSONObject manifest) {
+        if (!this.isValid()) {
+            // TODO: Create a custom exception for this
+            throw new IllegalArgumentException("Invalid manifest");
+        }
+
+        this.cardParser = new CardParser(manifest.getJSONObject("cards"));
+    }
+
+    private boolean isValid() {
+        return true;
+    }
+
+    public List<Card> getCards() throws Exception {
+        return this.cardParser.parseCards();
+    }
+
+}

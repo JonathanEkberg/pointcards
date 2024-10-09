@@ -2,7 +2,7 @@ package pointcards;
 
 import org.json.JSONObject;
 
-import pointcards.game.pointsalad.JSONManifestParser;
+import pointcards.game.pointsalad.manifest.ManifestParser;
 import pointcards.io.JSONFileReader;
 
 public class Playground {
@@ -18,7 +18,7 @@ public class Playground {
                 System.out.println("We support this!");
             }
 
-            var parser = new JSONManifestParser(manifest);
+            var parser = new ManifestParser(manifest);
             var cards = parser.getCards();
             System.out.println(cards.size());
         } catch (Exception e) {

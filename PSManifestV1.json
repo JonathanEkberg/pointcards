@@ -1,0 +1,226 @@
+{
+    "meta": {
+        "version": 1,
+        "game": "POINT_SALAD"
+    },
+    "cards": {
+        "PEPPER": [
+            {
+                "criterias": [
+                    {
+                        "type": "MOST",
+                        "veggie": "LETTUCE",
+                        "points": 10
+                    }
+                ]
+            },
+            {
+                "criterias": [
+                    {
+                        "type": "FEWEST",
+                        "veggie": "LETTUCE",
+                        "points": 7
+                    }
+                ]
+            },
+            {
+                "criterias": [
+                    {
+                        "type": "EVEN",
+                        "veggie": "LETTUCE",
+                        "points": 7
+                    },
+                    {
+                        "type": "ODD",
+                        "veggie": "LETTUCE",
+                        "points": 3
+                    }
+                ]
+            },
+            {
+                "criterias": [
+                    {
+                        "type": "EACH",
+                        "veggies": [
+                            "LETTUCE",
+                            "LETTUCE"
+                        ],
+                        "points": 5
+                    }
+                ]
+            },
+            {
+                "criterias": [
+                    {
+                        "type": "PER",
+                        "veggie": "LETTUCE",
+                        "points": 1
+                    },
+                    {
+                        "type": "PER",
+                        "veggie": "ONION",
+                        "points": 1
+                    }
+                ]
+            },
+            {
+                "criterias": [
+                    {
+                        "type": "PER",
+                        "veggie": "LETTUCE",
+                        "points": 1
+                    },
+                    {
+                        "type": "PER",
+                        "veggie": "TOMATO",
+                        "points": 1
+                    }
+                ]
+            },
+            {
+                "criterias": [
+                    {
+                        "type": "PER",
+                        "veggie": "LETTUCE",
+                        "points": 3
+                    },
+                    {
+                        "type": "PER",
+                        "veggie": "CARROT",
+                        "points": -2
+                    }
+                ]
+            },
+            {
+                "criterias": [
+                    {
+                        "type": "EACH",
+                        "veggies": [
+                            "LETTUCE",
+                            "LETTUCE",
+                            "LETTUCE"
+                        ],
+                        "points": 8
+                    }
+                ]
+            },
+            {
+                "criterias": [
+                    {
+                        "type": "EACH",
+                        "veggies": [
+                            "PEPPER",
+                            "LETTUCE",
+                            "CABBAGE"
+                        ],
+                        "points": 8
+                    }
+                ]
+            },
+            {
+                "criterias": [
+                    {
+                        "type": "EACH",
+                        "veggies": [
+                            "TOMATO",
+                            "LETTUCE",
+                            "CARROT"
+                        ],
+                        "points": 8
+                    }
+                ]
+            },
+            {
+                "criterias": [
+                    {
+                        "type": "PER",
+                        "veggie": "LETTUCE",
+                        "points": 2
+                    },
+                    {
+                        "type": "PER",
+                        "veggie": "CARROT",
+                        "points": 2
+                    },
+                    {
+                        "type": "PER",
+                        "veggie": "ONION",
+                        "points": -4
+                    }
+                ]
+            },
+            {
+                "criterias": [
+                    {
+                        "type": "PER",
+                        "veggie": "LETTUCE",
+                        "points": 3
+                    },
+                    {
+                        "type": "PER",
+                        "veggie": "ONION",
+                        "points": -1
+                    },
+                    {
+                        "type": "PER",
+                        "points": -1
+                    }
+                ]
+            },
+            {
+                "criterias": [
+                    {
+                        "type": "PER",
+                        "veggie": "LETTUCE",
+                        "points": 4
+                    },
+                    {
+                        "type": "PER",
+                        "veggie": "TOMATO",
+                        "points": -2
+                    },
+                    {
+                        "type": "PER",
+                        "veggie": "CABBAGE",
+                        "points": -2
+                    }
+                ]
+            },
+            {
+                "criterias": [
+                    {
+                        "type": "MOST_TOTAL",
+                        "points": 10
+                    }
+                ]
+            },
+            {
+                "criterias": [
+                    {
+                        "type": "FEWEST_TOTAL",
+                        "points": 7
+                    }
+                ]
+            },
+            {
+                "criterias": [
+                    {
+                        "type": "PER",
+                        "veggie": "LETTUCE",
+                        "points": 4
+                    },
+                    {
+                        "type": "PER",
+                        "veggie": "TOMATO",
+                        "points": -2
+                    },
+                    {
+                        "type": "PER",
+                        "veggie": "CABBAGE",
+                        "points": -2
+                    }
+                ]
+            }
+        ]
+    }
+}
