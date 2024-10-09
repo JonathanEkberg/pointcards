@@ -1,4 +1,4 @@
-package pointcards.filesystem;
+package pointcards.io;
 
 import org.json.JSONObject;
 import java.io.FileInputStream;
@@ -6,19 +6,19 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Scanner;
 
-public class JSONReader {
-    private final String manifestPath;
+public class JSONFileReader {
+    private final String filePath;
 
-    public JSONReader(String manifestPath) {
-        this.manifestPath = manifestPath;
+    public JSONFileReader(String filePath) {
+        this.filePath = filePath;
     }
 
-    public String getManifestPath() {
-        return manifestPath;
+    public String getFilePath() {
+        return filePath;
     }
 
     public JSONObject readJsonManifest() throws FileNotFoundException {
-        InputStream fileStream = new FileInputStream(this.manifestPath);
+        InputStream fileStream = new FileInputStream(this.filePath);
         Scanner scanner = new Scanner(fileStream, "UTF-8").useDelimiter("\\A");
 
         // Read the entire JSON file into a String
