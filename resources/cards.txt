@@ -1,0 +1,16 @@
+ID 1: N points - MOST    	
+ID 2: N points - FEWEST  	
+ID 3: N1 points if even of veggie otherwise N2
+ID 4: N points - Each veggie type
+ID 5: N points - Each unique pair of unique veggie type
+ID 6+7: N points - Each unique pair of any veggie type
+ID 8-9: Double ID 4 (multiple of points per veggie)
+ID 10: ID 8-9 but with minus also
+ID 11-13: N points per unique triad
+ID 14-17: ID 8-9 but triad with minus
+ID 18: 
+  * N points - Most total vegetables
+  * N points - Fewest total vegetables
+  * N points - More than equal to n vegetables of some type
+  * N points - Missing vegetable type
+  * N points - Complete set
