@@ -1,2 +1,2 @@
 #!/bin/bash
-javac -d bin -cp src src/pointcards/Main.java
+javac -d bin -cp "lib/json.jar:src" src/pointcards/**/*.java src/pointcards/Main.java
