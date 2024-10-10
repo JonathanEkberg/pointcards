@@ -1,4 +1,4 @@
-package pointcards.game.pointsalad.criterias;
+package pointcards.game.pointsalad.criteria.criterias;
 
 import java.util.HashMap;
 

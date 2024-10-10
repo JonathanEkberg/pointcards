@@ -8,10 +8,10 @@ import org.junit.Test;
 import pointcards.criteria.ICriteria;
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Veggie;
-import pointcards.game.pointsalad.criterias.CriteriaEven;
-import pointcards.game.pointsalad.criterias.CriteriaFewest;
-import pointcards.game.pointsalad.criterias.CriteriaMost;
-import pointcards.game.pointsalad.criterias.CriteriaOdd;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaEven;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaFewest;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaMost;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaOdd;
 
 public class TestCriteria {
     private class SingleCriteriaTest {

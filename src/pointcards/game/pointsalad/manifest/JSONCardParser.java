@@ -4,29 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import pointcards.criteria.Criterias;
 import pointcards.criteria.ICriteria;
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Veggie;
-import pointcards.game.pointsalad.criterias.CriteriaAtLeast;
-import pointcards.game.pointsalad.criterias.CriteriaEach;
-import pointcards.game.pointsalad.criterias.CriteriaEven;
-import pointcards.game.pointsalad.criterias.CriteriaFewest;
-import pointcards.game.pointsalad.criterias.CriteriaFewestTotal;
-import pointcards.game.pointsalad.criterias.CriteriaMost;
-import pointcards.game.pointsalad.criterias.CriteriaMostTotal;
-import pointcards.game.pointsalad.criterias.CriteriaOdd;
-import pointcards.game.pointsalad.criterias.CriteriaPer;
-import pointcards.game.pointsalad.criterias.CriteriaPerMissingType;
-import pointcards.game.pointsalad.criterias.CriteriaSet;
+import pointcards.game.pointsalad.criteria.CriteriaType;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaAtLeast;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaEach;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaEven;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaFewest;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaFewestTotal;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaMost;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaMostTotal;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaOdd;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaPer;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaPerMissingType;
+import pointcards.game.pointsalad.criteria.criterias.CriteriaSet;
 
-public class CardParser {
+public class JSONCardParser {
     private static final int EXPECTED_CARD_AMOUNT = 108;
     private final JSONObject cards;
 
-    public CardParser(JSONObject cards) {
+    public JSONCardParser(JSONObject cards) {
         this.cards = cards;
     }
 
@@ -38,18 +40,31 @@ public class CardParser {
             parsedCards.addAll(this.parseCardsArray(veggie, this.cards.getJSONArray(key)));
         }
 
+        if (parsedCards.size() != EXPECTED_CARD_AMOUNT) {
+            System.err.printf("Expected %d cards in manifest data but only found %d\n", EXPECTED_CARD_AMOUNT,
+                    parsedCards.size());
+            System.exit(1);
+        }
+
         return parsedCards;
     }
 
     private List<Card> parseCardsArray(Veggie veggie, JSONArray cards) {
-        List<Card> parsedCards = new ArrayList<>(cards.length());
+        try {
+            List<Card> parsedCards = new ArrayList<>(cards.length());
 
-        for (int i = 0; i < cards.length(); i++) {
-            JSONObject card = cards.getJSONObject(i);
-            parsedCards.add(this.parseCard(veggie, card));
+            for (int i = 0; i < cards.length(); i++) {
+                JSONObject card = cards.getJSONObject(i);
+                parsedCards.add(this.parseCard(veggie, card));
+            }
+
+            return parsedCards;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            System.err.printf("Error parsing cards for veggie: %s. Message: %s\n", veggie, e.getMessage());
+            System.exit(1);
+            return null;
         }
-
-        return parsedCards;
     }
 
     private Card parseCard(Veggie veggie, JSONObject card) {

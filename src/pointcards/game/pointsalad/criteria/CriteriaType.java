@@ -1,4 +1,4 @@
-package pointcards.game.pointsalad.manifest;
+package pointcards.game.pointsalad.criteria;
 
 public enum CriteriaType {
     MOST,

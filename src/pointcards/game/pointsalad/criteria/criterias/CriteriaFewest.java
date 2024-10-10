@@ -1,14 +1,14 @@
-package pointcards.game.pointsalad.criterias;
+package pointcards.game.pointsalad.criteria.criterias;
 
 import pointcards.criteria.ICriteria;
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Veggie;
 
-public class CriteriaMost implements ICriteria {
+public class CriteriaFewest implements ICriteria {
     private final Veggie target;
     private final int points;
 
-    public CriteriaMost(Veggie target, int points) {
+    public CriteriaFewest(Veggie target, int points) {
         this.target = target;
         this.points = points;
     }
@@ -22,12 +22,7 @@ public class CriteriaMost implements ICriteria {
             }
         }
 
-        // If the owner has no cards of the target type then they cannot have the most
-        if (ownerCount == 0) {
-            return 0;
-        }
-
-        int maxOpponentCount = 0;
+        int minOpponentCount = Integer.MAX_VALUE;
         for (Card[] opponent : opponents) {
             int opponentCount = 0;
             for (Card card : opponent) {
@@ -35,10 +30,9 @@ public class CriteriaMost implements ICriteria {
                     opponentCount++;
                 }
             }
-            maxOpponentCount = Math.max(maxOpponentCount, opponentCount);
+            minOpponentCount = Math.min(minOpponentCount, opponentCount);
         }
 
-        return ownerCount > maxOpponentCount ? this.points : 0;
-
+        return ownerCount < minOpponentCount ? this.points : 0;
     }
 }

@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import pointcards.game.Bot;
 import pointcards.game.IGameFactory;
 import pointcards.game.Player;
-import pointcards.game.pointsalad.manifest.ManifestParser;
+import pointcards.game.pointsalad.manifest.JSONManifestParser;
 import pointcards.io.JSONFileReader;
 import pointcards.io.input.IInput;
 import pointcards.settings.GameSettings;
@@ -21,7 +21,7 @@ public class GameFactory implements IGameFactory {
             JSONFileReader reader = new JSONFileReader(manifestPath);
             System.out.println("Reading manifest file from " + manifestPath);
             JSONObject manifest = reader.readJsonFile();
-            ManifestParser manifestParser = new ManifestParser(manifest);
+            JSONManifestParser manifestParser = new JSONManifestParser(manifest);
             this.cards = manifestParser.getCards();
         } catch (Exception e) {
             e.printStackTrace();

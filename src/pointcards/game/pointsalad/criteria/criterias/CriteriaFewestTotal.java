@@ -1,8 +1,7 @@
-package pointcards.game.pointsalad.criterias;
+package pointcards.game.pointsalad.criteria.criterias;
 
 import pointcards.criteria.ICriteria;
 import pointcards.game.pointsalad.Card;
-import pointcards.game.pointsalad.Veggie;
 
 public class CriteriaFewestTotal implements ICriteria {
     private final int points;
@@ -13,17 +12,11 @@ public class CriteriaFewestTotal implements ICriteria {
 
     @Override
     public int calculatePoints(Card[] owner, Card[][] opponents) {
-        int ownerCount = 0;
-        for (Card __ : owner) {
-            ownerCount++;
-        }
+        int ownerCount = owner.length;
 
         int minOpponentCount = Integer.MAX_VALUE;
         for (Card[] opponent : opponents) {
-            int opponentCount = 0;
-            for (Card __ : opponent) {
-                opponentCount++;
-            }
+            int opponentCount = opponent.length;
             minOpponentCount = Math.min(minOpponentCount, opponentCount);
         }
 
