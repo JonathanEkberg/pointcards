@@ -529,7 +529,7 @@
                 "criterias": [
                     {
                         "type": "PER",
-                        "veggies": "CABBAGE",
+                        "veggie": "CABBAGE",
                         "points": 2
                     }
                 ]
