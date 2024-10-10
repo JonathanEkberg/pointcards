@@ -2,18 +2,31 @@ package pointcards.game.pointsalad;
 
 import java.util.List;
 
+import org.json.JSONObject;
+
 import pointcards.game.Bot;
 import pointcards.game.IGameFactory;
 import pointcards.game.Player;
+import pointcards.game.pointsalad.manifest.ManifestParser;
+import pointcards.io.JSONFileReader;
 import pointcards.io.input.IInput;
 import pointcards.settings.GameSettings;
 import pointcards.settings.OptionalGameSettings;
 
 public class GameFactory implements IGameFactory {
-    final String manifestPath;
+    final List<Card> cards;
 
-    public GameFactory(String manifestPath) {
-        this.manifestPath = manifestPath;
+    public GameFactory(String manifestPath) throws Exception {
+        try {
+            JSONFileReader reader = new JSONFileReader(manifestPath);
+            System.out.println("Reading manifest file from " + manifestPath);
+            JSONObject manifest = reader.readJsonFile();
+            ManifestParser manifestParser = new ManifestParser(manifest);
+            this.cards = manifestParser.getCards();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Failed to read manifest file");
+        }
     }
 
     public final GameSettings setGameSettings(final OptionalGameSettings settings, final IInput input) {
@@ -33,10 +46,10 @@ public class GameFactory implements IGameFactory {
     }
 
     public final Game createGame(final List<Player> players) {
-        return new Game(players);
+        return new Game(this.cards, players);
     }
 
     public final Game createGame(final List<Player> players, final List<Bot> bots) {
-        return new Game(players, bots);
+        return new Game(this.cards, players, bots);
     }
 }

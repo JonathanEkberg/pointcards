@@ -1,10 +1,6 @@
 package pointcards;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +17,6 @@ import pointcards.io.output.RemoteOutput;
 import pointcards.network.INetworkClient;
 import pointcards.network.INetworkServer;
 import pointcards.network.IServerFactory;
-import pointcards.network.tcp.TCPServer;
 import pointcards.settings.GameSettings;
 import pointcards.settings.OptionalGameSettings;
 import pointcards.utils.Logger;

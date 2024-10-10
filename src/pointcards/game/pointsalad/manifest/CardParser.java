@@ -6,10 +6,21 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import pointcards.criteria.Criterias;
+import pointcards.criteria.ICriteria;
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Veggie;
-import pointcards.game.pointsalad.criteria.Criterias;
-import pointcards.game.pointsalad.criteria.ICriteria;
+import pointcards.game.pointsalad.criterias.CriteriaAtLeast;
+import pointcards.game.pointsalad.criterias.CriteriaEach;
+import pointcards.game.pointsalad.criterias.CriteriaEven;
+import pointcards.game.pointsalad.criterias.CriteriaFewest;
+import pointcards.game.pointsalad.criterias.CriteriaFewestTotal;
+import pointcards.game.pointsalad.criterias.CriteriaMost;
+import pointcards.game.pointsalad.criterias.CriteriaMostTotal;
+import pointcards.game.pointsalad.criterias.CriteriaOdd;
+import pointcards.game.pointsalad.criterias.CriteriaPer;
+import pointcards.game.pointsalad.criterias.CriteriaPerMissingType;
+import pointcards.game.pointsalad.criterias.CriteriaSet;
 
 public class CardParser {
     private static final int EXPECTED_CARD_AMOUNT = 108;
@@ -24,7 +35,7 @@ public class CardParser {
 
         for (String key : this.cards.keySet()) {
             Veggie veggie = Veggie.valueOf(key);
-            List<Card> cards = this.parseCardsArray(veggie, this.cards.getJSONArray(key));
+            parsedCards.addAll(this.parseCardsArray(veggie, this.cards.getJSONArray(key)));
         }
 
         return parsedCards;
@@ -35,16 +46,18 @@ public class CardParser {
 
         for (int i = 0; i < cards.length(); i++) {
             JSONObject card = cards.getJSONObject(i);
-            this.parseCard(veggie, card);
+            parsedCards.add(this.parseCard(veggie, card));
         }
 
         return parsedCards;
     }
 
     private Card parseCard(Veggie veggie, JSONObject card) {
-        if (!card.has("criteria")) {
+        if (!card.has("criterias")) {
+            System.out.println(card);
             // TODO: Create a custom exception for this
-            throw new Exception("Card is missing criteria");
+            // throw new Exception("Card is missing criteria");
+            System.exit(1);
         }
 
         JSONArray criterias = card.getJSONArray("criterias");
@@ -59,6 +72,7 @@ public class CardParser {
         for (int i = 0; i < criterias.length(); i++) {
             JSONObject criteria = criterias.getJSONObject(i);
             ICriteria parsedCriteria = this.parseCriteria(criteria);
+            parsedCriterias[i] = parsedCriteria;
         }
 
         ICriteria criteria = new Criterias(parsedCriterias);
@@ -76,17 +90,66 @@ public class CardParser {
         CriteriaType criteriaType = CriteriaType.valueOf(type);
 
         switch (criteriaType) {
-            case FEWEST:
-                return this.parseCriteriaFewest(criteria);
-            case MOST:
-                return this.parseCriteriaMost(criteria);
-            case ODD:
-                return this.parseCriteriaOdd(criteria);
-            case EVEN:
-                return this.parseCriteriaEven(criteria);
-            case EACH:
-                return this.parseCriteriaEach(criteria);
+            case MOST: {
+                int points = criteria.getNumber("points").intValue();
+                Veggie target = Veggie.valueOf(criteria.getString("veggie"));
+                return new CriteriaMost(target, points);
+            }
+            case FEWEST: {
+                int points = criteria.getNumber("points").intValue();
+                Veggie target = Veggie.valueOf(criteria.getString("veggie"));
+                return new CriteriaFewest(target, points);
+            }
+            case EVEN: {
+                int points = criteria.getNumber("points").intValue();
+                Veggie target = Veggie.valueOf(criteria.getString("veggie"));
+                return new CriteriaEven(target, points);
+            }
+            case ODD: {
+                int points = criteria.getNumber("points").intValue();
+                Veggie target = Veggie.valueOf(criteria.getString("veggie"));
+                return new CriteriaOdd(target, points);
+            }
+            case PER: {
+                int points = criteria.getNumber("points").intValue();
+                Veggie target = Veggie.valueOf(criteria.getString("veggie"));
+                return new CriteriaPer(target, points);
+            }
+            case EACH: {
+                int points = criteria.getNumber("points").intValue();
+                var jsonVeggies = (criteria.getJSONArray("veggies"));
+                Veggie[] veggies = new Veggie[jsonVeggies.length()];
+
+                for (int i = 0; i < jsonVeggies.length(); i++) {
+                    veggies[i] = Veggie.valueOf(jsonVeggies.getString(i));
+                }
+
+                return new CriteriaEach(veggies, points);
+            }
+            case SET: {
+                int points = criteria.getNumber("points").intValue();
+                return new CriteriaSet(points);
+            }
+            case MOST_TOTAL: {
+                int points = criteria.getNumber("points").intValue();
+                return new CriteriaMostTotal(points);
+            }
+            case AT_LEAST: {
+                int points = criteria.getNumber("points").intValue();
+                int value = criteria.getNumber("value").intValue();
+                return new CriteriaAtLeast(value, points);
+            }
+            case FEWEST_TOTAL: {
+                int points = criteria.getNumber("points").intValue();
+                return new CriteriaFewestTotal(points);
+            }
+            case PER_MISSING_TYPE: {
+                int points = criteria.getNumber("points").intValue();
+                return new CriteriaPerMissingType(points);
+            }
             default:
+                System.err.printf("Unimplemented criteria for CriteriaEnum: %s\n", criteriaType);
+                System.exit(1);
                 return null;
         }
     }

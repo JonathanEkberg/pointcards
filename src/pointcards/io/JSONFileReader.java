@@ -17,7 +17,7 @@ public class JSONFileReader {
         return filePath;
     }
 
-    public JSONObject readJsonManifest() throws FileNotFoundException {
+    public JSONObject readJsonFile() throws FileNotFoundException {
         InputStream fileStream = new FileInputStream(this.filePath);
         Scanner scanner = new Scanner(fileStream, "UTF-8").useDelimiter("\\A");
 

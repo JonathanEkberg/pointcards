@@ -1,12 +1,15 @@
 package pointcards.game.pointsalad.manifest;
 
 public enum CriteriaType {
-    MOST("MOST"),
-    FEWEST("FEWEST");
-
-    private final String name;
-
-    CriteriaType(String name) {
-        this.name = name;
-    }
+    MOST,
+    FEWEST,
+    EVEN,
+    ODD,
+    EACH,
+    PER,
+    SET,
+    MOST_TOTAL,
+    AT_LEAST,
+    FEWEST_TOTAL,
+    PER_MISSING_TYPE;
 }

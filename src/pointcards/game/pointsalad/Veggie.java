@@ -6,5 +6,5 @@ public enum Veggie {
     TOMATO,
     ONION,
     PEPPER,
-    POTATO
+    CABBAGE
 }

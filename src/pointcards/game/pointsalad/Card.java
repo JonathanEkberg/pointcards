@@ -1,6 +1,6 @@
 package pointcards.game.pointsalad;
 
-import pointcards.game.pointsalad.criteria.ICriteria;
+import pointcards.criteria.ICriteria;
 
 public class Card {
     private final Veggie veggie;

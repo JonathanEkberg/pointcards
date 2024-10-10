@@ -1,28 +1,29 @@
 package pointcards;
 
-import pointcards.game.IGame;
 import pointcards.game.IGameFactory;
 import pointcards.game.pointsalad.GameFactory;
-import pointcards.io.input.IInput;
-import pointcards.io.input.LocalConsoleInput;
 import pointcards.network.IServerFactory;
 import pointcards.network.tcp.TCPServerFactory;
-import pointcards.settings.GameSettings;
 import pointcards.settings.OptionalGameSettings;
 import pointcards.settings.ProgramSettings;
 import pointcards.utils.Args;
 
 public class Main {
     public static void main(final String[] args) {
-        OptionalGameSettings settings = Args.parseArgs(args);
+        try {
+            OptionalGameSettings settings = Args.parseArgs(args);
 
-        if (settings.getIsServer()) {
-            IGameFactory gameFactory = new GameFactory(settings.getManifestPath());
-            IServerFactory serverFactory = new TCPServerFactory();
+            if (settings.getIsServer()) {
+                IGameFactory gameFactory = new GameFactory(settings.getManifestPath());
+                IServerFactory serverFactory = new TCPServerFactory();
 
-            runGameServer(settings, gameFactory, serverFactory);
-        } else {
-            runGameClient(settings);
+                runGameServer(settings, gameFactory, serverFactory);
+            } else {
+                runGameClient(settings);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Failed to start the game");
         }
     }
 

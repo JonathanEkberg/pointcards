@@ -16,12 +16,12 @@ public class Game implements IGame {
     // private PSGameState state;
     private IPhase startPhase;
 
-    public Game(List<Player> players) {
-        this.startPhase = new InitPhase();
+    public Game(List<Card> cards, List<Player> players) {
+        // this.startPhase = new InitPhase();
     }
 
-    public Game(List<Player> players, List<Bot> bots) {
-        this.startPhase = new InitPhase();
+    public Game(List<Card> cards, List<Player> players, List<Bot> bots) {
+        // this.startPhase = new InitPhase();
     }
 
     @Override

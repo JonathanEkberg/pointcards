@@ -1,8 +1,8 @@
-package pointcards.game.pointsalad.criteria.criterias;
+package pointcards.game.pointsalad.criterias;
 
+import pointcards.criteria.ICriteria;
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Veggie;
-import pointcards.game.pointsalad.criteria.ICriteria;
 
 public class CriteriaEach implements ICriteria {
     private final Veggie[] targets;

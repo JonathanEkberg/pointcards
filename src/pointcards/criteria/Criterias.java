@@ -1,4 +1,4 @@
-package pointcards.game.pointsalad.criteria;
+package pointcards.criteria;
 
 import pointcards.game.pointsalad.Card;
 

@@ -22,7 +22,6 @@ public class Logger {
                 logLevel = LogLevel.DEBUG; // Default level
             }
         } else {
-            // TODO: Change to ERROR in production
             logLevel = LogLevel.DEBUG; // Default level
         }
     }

@@ -1,9 +1,9 @@
 package test.utils;
 
+import pointcards.criteria.ICriteria;
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Veggie;
-import pointcards.game.pointsalad.criteria.ICriteria;
-import pointcards.game.pointsalad.criteria.criterias.CriteriaMost;
+import pointcards.game.pointsalad.criterias.CriteriaMost;
 
 public class Hand {
     public static Card[] createHand(Veggie type, int amount) {
