@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import pointcards.game.Bot;
+import pointcards.game.BaseBot;
 import pointcards.game.IGame;
 import pointcards.game.IGameFactory;
-import pointcards.game.Player;
+import pointcards.game.BasePlayer;
 import pointcards.io.input.IInput;
 import pointcards.io.input.LocalConsoleInput;
 import pointcards.io.input.RemoteInput;
@@ -36,9 +36,9 @@ public class GameServer {
     }
 
     private IGame initGame(IGameFactory factory, GameSettings settings) throws IOException {
-        final List<Player> players = new ArrayList<>(settings.getNumberOfPlayers());
+        final List<BasePlayer> players = new ArrayList<>(settings.getNumberOfPlayers());
         // The server player. Always at least one.
-        players.add(new Player(new LocalConsoleInput(), new LocalConsoleOutput()));
+        players.add(new BasePlayer(new LocalConsoleInput(), new LocalConsoleOutput()));
 
         // Remote players (if any)
         if (settings.getNumberOfPlayers() > 1) {
@@ -47,7 +47,7 @@ public class GameServer {
             for (INetworkClient client : clients) {
                 IInput input = new RemoteInput(client);
                 IOutput output = new RemoteOutput(client);
-                Player player = new Player(input, output);
+                BasePlayer player = new BasePlayer(input, output);
                 players.add(player);
             }
         }
@@ -56,10 +56,10 @@ public class GameServer {
             return factory.createGame(players);
         }
 
-        final List<Bot> bots = new ArrayList<>(settings.getNumberOfBots());
+        final List<BaseBot> bots = new ArrayList<>(settings.getNumberOfBots());
 
         for (int i = 0; i < settings.getNumberOfBots(); i++) {
-            var bot = new Bot();
+            var bot = new BaseBot();
             bots.add(bot);
         }
 

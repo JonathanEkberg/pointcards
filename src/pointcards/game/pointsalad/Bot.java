@@ -3,12 +3,12 @@ package pointcards.game.pointsalad;
 import java.util.ArrayList;
 import java.util.List;
 
-import pointcards.game.Bot;
+import pointcards.game.BaseBot;
 
-public class PSBot extends Bot {
+public class Bot extends BaseBot {
     private ArrayList<Card> hand;
 
-    public PSBot() {
+    public Bot() {
         this.hand = new ArrayList<>();
     }
 

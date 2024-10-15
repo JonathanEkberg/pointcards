@@ -3,11 +3,11 @@ package pointcards.game;
 import pointcards.io.input.IInput;
 import pointcards.io.output.IOutput;
 
-public class Player extends Entity {
+public class BasePlayer extends Entity {
     final IInput input;
     final IOutput output;
 
-    public Player(final IInput input, final IOutput output) {
+    public BasePlayer(final IInput input, final IOutput output) {
         this.input = input;
         this.output = output;
     }

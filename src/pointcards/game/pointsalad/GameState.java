@@ -12,7 +12,7 @@ public class GameState {
     private Decks decks;
     private Market market;
 
-    public GameState(List<PSPlayer> players, List<PSBot> bots, Deck deck) {
+    public GameState(List<Player> players, List<Bot> bots, Deck deck) {
         this.decks = new Decks(deck);
         this.market = new Market();
 

@@ -10,7 +10,7 @@ import pointcards.game.pointsalad.Deck;
 import pointcards.game.pointsalad.Decks;
 import pointcards.game.pointsalad.GameState;
 import pointcards.game.pointsalad.Market.ColumnFullException;
-import pointcards.game.pointsalad.PSPlayer;
+import pointcards.game.pointsalad.Player;
 import pointcards.utils.Logger;
 
 public class InitPhase implements IPhase {
@@ -56,7 +56,7 @@ public class InitPhase implements IPhase {
 
         Entity turn = state.turner.getTurn();
 
-        if (turn instanceof PSPlayer) {
+        if (turn instanceof Player) {
             return Optional.of(new PlayerTurnPhase(state));
         }
 

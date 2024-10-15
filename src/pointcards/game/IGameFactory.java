@@ -18,7 +18,7 @@ public interface IGameFactory {
      */
     public GameSettings setGameSettings(OptionalGameSettings settings, IInput input);
 
-    public IGame createGame(List<Player> players);
+    public IGame createGame(List<BasePlayer> players);
 
-    public IGame createGame(List<Player> players, List<Bot> bots);
+    public IGame createGame(List<BasePlayer> players, List<BaseBot> bots);
 }

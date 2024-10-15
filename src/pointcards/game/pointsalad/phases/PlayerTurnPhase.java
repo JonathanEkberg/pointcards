@@ -5,7 +5,7 @@ import java.util.Optional;
 import pointcards.game.Entity;
 import pointcards.game.IPhase;
 import pointcards.game.pointsalad.GameState;
-import pointcards.game.pointsalad.PSPlayer;
+import pointcards.game.pointsalad.Player;
 import pointcards.io.input.IInput;
 import pointcards.io.output.IOutput;
 import pointcards.utils.Logger;
@@ -20,7 +20,7 @@ public class PlayerTurnPhase implements IPhase {
     @Override
     public Optional<IPhase> run() {
         try {
-            PSPlayer player = (PSPlayer) state.turner.getTurn();
+            Player player = (Player) state.turner.getTurn();
 
             printPlayerTurn(player);
             handlePlayerTurn(player);
@@ -42,14 +42,14 @@ public class PlayerTurnPhase implements IPhase {
         state.turner.next();
         Entity nextPlayer = state.turner.getTurn();
 
-        if (nextPlayer instanceof PSPlayer) {
+        if (nextPlayer instanceof Player) {
             return Optional.of(new PlayerTurnPhase(state));
         }
 
         return Optional.of(new BotTurnPhase(state));
     }
 
-    private void printPlayerTurn(PSPlayer player) {
+    private void printPlayerTurn(Player player) {
         IOutput output = player.getOutput();
         output.send(
                 String.format(
@@ -57,7 +57,7 @@ public class PlayerTurnPhase implements IPhase {
                         "TODO", "TODO", "TODO", "TODO"));
     }
 
-    private void handlePlayerTurn(PSPlayer player) {
+    private void handlePlayerTurn(Player player) {
         IInput input = player.getInput();
         String choice = input.queryString(
                 "Take either one point card (Syntax example: 2) or up to two vegetable cards (Syntax example: CF)");
@@ -90,11 +90,11 @@ public class PlayerTurnPhase implements IPhase {
         Logger.debug("User input: " + sb.toString());
     }
 
-    private void handleTakePointCard(PSPlayer player, int deckIdx) {
+    private void handleTakePointCard(Player player, int deckIdx) {
         // TODO
     }
 
-    private void handleTakeMarketCards(PSPlayer player, char[] choices) {
+    private void handleTakeMarketCards(Player player, char[] choices) {
         // TODO
         // Map chars to column and row indices
         int columnIdx = -1;

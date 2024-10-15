@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import pointcards.game.Bot;
+import pointcards.game.BaseBot;
 import pointcards.game.IGameFactory;
-import pointcards.game.Player;
+import pointcards.game.BasePlayer;
 import pointcards.game.pointsalad.manifest.JSONManifestParser;
 import pointcards.io.JSONFileReader;
 import pointcards.io.input.IInput;
@@ -48,7 +48,7 @@ public class GameFactory implements IGameFactory {
         return new GameSettings(settings);
     }
 
-    public PointSaladGame createGame(final List<Player> players) {
+    public PointSaladGame createGame(final List<BasePlayer> players) {
         return this.createGame(players, List.of());
     }
 
@@ -88,11 +88,11 @@ public class GameFactory implements IGameFactory {
         return shuffled;
     }
 
-    public PointSaladGame createGame(final List<Player> players, final List<Bot> bots) {
-        List<PSPlayer> psPlayers = List
-                .of(players.stream().map(player -> new PSPlayer(player)).toArray(PSPlayer[]::new));
-        List<PSBot> psBots = List
-                .of(bots.stream().map(bot -> new PSBot()).toArray(PSBot[]::new));
+    public PointSaladGame createGame(final List<BasePlayer> players, final List<BaseBot> bots) {
+        List<Player> psPlayers = List
+                .of(players.stream().map(player -> new Player(player)).toArray(Player[]::new));
+        List<Bot> psBots = List
+                .of(bots.stream().map(bot -> new Bot()).toArray(Bot[]::new));
         // Create a deck with all the cards from the manifest.
         List<Card> gameCards = this.participantCountToCards(players.size() + bots.size());
         Deck gameDeck = new Deck(gameCards);

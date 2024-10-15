@@ -3,19 +3,19 @@ package pointcards.game.pointsalad;
 import java.util.ArrayList;
 import java.util.List;
 
-import pointcards.game.Player;
+import pointcards.game.BasePlayer;
 import pointcards.io.input.IInput;
 import pointcards.io.output.IOutput;
 
-public class PSPlayer extends Player {
+public class Player extends BasePlayer {
     private List<Card> veggies = new ArrayList<>();
     private List<Card> criterias = new ArrayList<>();
 
-    public PSPlayer(Player player) {
+    public Player(BasePlayer player) {
         super(player.getInput(), player.getOutput());
     }
 
-    public PSPlayer(IInput input, IOutput output) {
+    public Player(IInput input, IOutput output) {
         super(input, output);
     }
 
