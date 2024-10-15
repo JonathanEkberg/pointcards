@@ -2,9 +2,9 @@ package pointcards.game.pointsalad.criteria.criterias;
 
 import java.util.HashMap;
 
-import pointcards.game.criteria.ICriteria;
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Veggie;
+import pointcards.game.pointsalad.criteria.ICriteria;
 
 public class CriteriaPerMissingType implements ICriteria {
     private final int points;

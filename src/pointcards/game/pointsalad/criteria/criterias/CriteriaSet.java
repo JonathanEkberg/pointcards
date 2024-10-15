@@ -4,9 +4,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import pointcards.game.criteria.ICriteria;
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Veggie;
+import pointcards.game.pointsalad.criteria.ICriteria;
 
 public class CriteriaSet implements ICriteria {
     private final int points;

@@ -1,8 +1,8 @@
 package test.utils;
 
-import pointcards.game.criteria.ICriteria;
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Veggie;
+import pointcards.game.pointsalad.criteria.ICriteria;
 import pointcards.game.pointsalad.criteria.criterias.CriteriaMost;
 
 public class Hand {

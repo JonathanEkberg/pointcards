@@ -1,8 +1,8 @@
 package pointcards.game.pointsalad.criteria.criterias;
 
-import pointcards.game.criteria.ICriteria;
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Veggie;
+import pointcards.game.pointsalad.criteria.ICriteria;
 
 public class CriteriaPer implements ICriteria {
     private final Veggie target;

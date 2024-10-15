@@ -1,7 +1,7 @@
 package pointcards.game.pointsalad.criteria.criterias;
 
-import pointcards.game.criteria.ICriteria;
 import pointcards.game.pointsalad.Card;
+import pointcards.game.pointsalad.criteria.ICriteria;
 
 public class CriteriaMostTotal implements ICriteria {
     private final int points;

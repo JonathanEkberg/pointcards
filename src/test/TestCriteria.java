@@ -5,9 +5,9 @@ import static test.utils.Hand.createHand;
 
 import org.junit.Test;
 
-import pointcards.game.criteria.ICriteria;
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Veggie;
+import pointcards.game.pointsalad.criteria.ICriteria;
 import pointcards.game.pointsalad.criteria.criterias.CriteriaEven;
 import pointcards.game.pointsalad.criteria.criterias.CriteriaFewest;
 import pointcards.game.pointsalad.criteria.criterias.CriteriaMost;
