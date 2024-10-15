@@ -3,7 +3,7 @@ package pointcards;
 import org.json.JSONObject;
 
 import pointcards.game.pointsalad.Veggie;
-import pointcards.game.pointsalad.manifest.JSONManifestParser;
+import pointcards.game.pointsalad.manifest.json.JSONManifestParser;
 import pointcards.io.JSONFileReader;
 
 public class Playground {

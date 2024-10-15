@@ -1,4 +1,4 @@
-package pointcards.game.pointsalad.manifest;
+package pointcards.game.pointsalad.manifest.json.versions.v1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +23,9 @@ import pointcards.game.pointsalad.criteria.criterias.CriteriaOdd;
 import pointcards.game.pointsalad.criteria.criterias.CriteriaPer;
 import pointcards.game.pointsalad.criteria.criterias.CriteriaPerMissingType;
 import pointcards.game.pointsalad.criteria.criterias.CriteriaSet;
+import pointcards.game.pointsalad.manifest.json.IJSONCardParser;
 
-public class JSONCardParser {
+public class JSONCardParser implements IJSONCardParser {
     private static final int EXPECTED_CARD_AMOUNT = 108;
     private final JSONObject cards;
 
@@ -95,6 +96,18 @@ public class JSONCardParser {
         return new Card(veggie, criteria);
     }
 
+    private int getCriteriaPoints(JSONObject criteria) {
+        assert criteria.has("points") : "Criteria is missing points field";
+
+        return criteria.getNumber("points").intValue();
+    }
+
+    private Veggie getCriteriaVeggie(JSONObject criteria) {
+        assert criteria.has("veggie") : "Criteria is missing veggie field";
+
+        return Veggie.valueOf(criteria.getString("veggie"));
+    }
+
     private ICriteria parseCriteria(JSONObject criteria) {
         if (!criteria.has("type")) {
             return null;
@@ -105,33 +118,29 @@ public class JSONCardParser {
         CriteriaType criteriaType = CriteriaType.valueOf(type);
 
         switch (criteriaType) {
-            case MOST: {
-                int points = criteria.getNumber("points").intValue();
-                Veggie target = Veggie.valueOf(criteria.getString("veggie"));
-                return new CriteriaMost(target, points);
-            }
-            case FEWEST: {
-                int points = criteria.getNumber("points").intValue();
-                Veggie target = Veggie.valueOf(criteria.getString("veggie"));
-                return new CriteriaFewest(target, points);
-            }
-            case EVEN: {
-                int points = criteria.getNumber("points").intValue();
-                Veggie target = Veggie.valueOf(criteria.getString("veggie"));
-                return new CriteriaEven(target, points);
-            }
-            case ODD: {
-                int points = criteria.getNumber("points").intValue();
-                Veggie target = Veggie.valueOf(criteria.getString("veggie"));
-                return new CriteriaOdd(target, points);
-            }
-            case PER: {
-                int points = criteria.getNumber("points").intValue();
-                Veggie target = Veggie.valueOf(criteria.getString("veggie"));
-                return new CriteriaPer(target, points);
+            case SET:
+                return new CriteriaSet(getCriteriaPoints(criteria));
+            case MOST_TOTAL:
+                return new CriteriaMostTotal(getCriteriaPoints(criteria));
+            case FEWEST_TOTAL:
+                return new CriteriaFewestTotal(getCriteriaPoints(criteria));
+            case PER_MISSING_TYPE:
+                return new CriteriaPerMissingType(getCriteriaPoints(criteria));
+            case MOST:
+                return new CriteriaMost(getCriteriaVeggie(criteria), getCriteriaPoints(criteria));
+            case FEWEST:
+                return new CriteriaFewest(getCriteriaVeggie(criteria), getCriteriaPoints(criteria));
+            case EVEN:
+                return new CriteriaEven(getCriteriaVeggie(criteria), getCriteriaPoints(criteria));
+            case ODD:
+                return new CriteriaOdd(getCriteriaVeggie(criteria), getCriteriaPoints(criteria));
+            case PER:
+                return new CriteriaPer(getCriteriaVeggie(criteria), getCriteriaPoints(criteria));
+            case AT_LEAST: {
+                int value = criteria.getNumber("value").intValue();
+                return new CriteriaAtLeast(value, getCriteriaPoints(criteria));
             }
             case EACH: {
-                int points = criteria.getNumber("points").intValue();
                 var jsonVeggies = (criteria.getJSONArray("veggies"));
                 Veggie[] veggies = new Veggie[jsonVeggies.length()];
 
@@ -139,28 +148,7 @@ public class JSONCardParser {
                     veggies[i] = Veggie.valueOf(jsonVeggies.getString(i));
                 }
 
-                return new CriteriaEach(veggies, points);
-            }
-            case SET: {
-                int points = criteria.getNumber("points").intValue();
-                return new CriteriaSet(points);
-            }
-            case MOST_TOTAL: {
-                int points = criteria.getNumber("points").intValue();
-                return new CriteriaMostTotal(points);
-            }
-            case AT_LEAST: {
-                int points = criteria.getNumber("points").intValue();
-                int value = criteria.getNumber("value").intValue();
-                return new CriteriaAtLeast(value, points);
-            }
-            case FEWEST_TOTAL: {
-                int points = criteria.getNumber("points").intValue();
-                return new CriteriaFewestTotal(points);
-            }
-            case PER_MISSING_TYPE: {
-                int points = criteria.getNumber("points").intValue();
-                return new CriteriaPerMissingType(points);
+                return new CriteriaEach(veggies, getCriteriaPoints(criteria));
             }
             default:
                 System.err.printf("Unimplemented criteria for CriteriaEnum: %s\n", criteriaType);
