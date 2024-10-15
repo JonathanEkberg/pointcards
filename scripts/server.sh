@@ -1,3 +1,3 @@
 #!/bin/bash
 ./scripts/compile.sh
-java -cp "lib/json.jar:bin" pointcards.Main --type server --manifest-path ./PSManifestV1.json
+java -ea -cp "lib/json.jar:bin" pointcards.Main pointcards.Main --type server --manifest-path ./PSManifestV1.json --players 2 --bots 0

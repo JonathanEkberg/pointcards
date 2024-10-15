@@ -1,6 +1,6 @@
 package pointcards.game.pointsalad;
 
-import pointcards.criteria.ICriteria;
+import pointcards.game.criteria.ICriteria;
 
 public class Card {
     private final Veggie veggie;
@@ -17,5 +17,9 @@ public class Card {
 
     public ICriteria getCriteria() {
         return criteria;
+    }
+
+    public String toString() {
+        return veggie.toString();
     }
 }

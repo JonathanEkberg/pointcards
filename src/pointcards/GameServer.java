@@ -25,18 +25,17 @@ public class GameServer {
     private final IGame game;
     private final INetworkServer server;
 
-    public GameServer(IGameFactory factory, IServerFactory serverFactory, final OptionalGameSettings settings)
+    public GameServer(IGameFactory factory, IServerFactory serverFactory, OptionalGameSettings settings)
             throws IOException {
         Logger.info("Game server started on port " + settings.getPort());
-        final IInput input = new LocalConsoleInput();
-        // this.server = new TCPServer();
+        IInput input = new LocalConsoleInput();
         this.server = serverFactory.createServer();
         this.server.start(settings.getPort());
-        final GameSettings gameSettings = factory.setGameSettings(settings, input);
+        GameSettings gameSettings = factory.setGameSettings(settings, input);
         this.game = initGame(factory, gameSettings);
     }
 
-    private IGame initGame(final IGameFactory factory, final GameSettings settings) throws IOException {
+    private IGame initGame(IGameFactory factory, GameSettings settings) throws IOException {
         final List<Player> players = new ArrayList<>(settings.getNumberOfPlayers());
         // The server player. Always at least one.
         players.add(new Player(new LocalConsoleInput(), new LocalConsoleOutput()));
@@ -69,5 +68,6 @@ public class GameServer {
 
     public void run() {
         this.game.run();
+        // server.stop();
     }
 }

@@ -1,5 +1,8 @@
 package pointcards.game.pointsalad;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -14,7 +17,7 @@ import pointcards.settings.GameSettings;
 import pointcards.settings.OptionalGameSettings;
 
 public class GameFactory implements IGameFactory {
-    final List<Card> cards;
+    private final List<Card> cards;
 
     public GameFactory(String manifestPath) throws Exception {
         try {
@@ -29,7 +32,7 @@ public class GameFactory implements IGameFactory {
         }
     }
 
-    public final GameSettings setGameSettings(final OptionalGameSettings settings, final IInput input) {
+    public GameSettings setGameSettings(final OptionalGameSettings settings, final IInput input) {
         if (settings.getNumberOfPlayers().isEmpty() || settings.getNumberOfPlayers().get() < 1
                 || settings.getNumberOfPlayers().get() > 6) {
             var players = input.queryInt("Enter the number of players", 1,
@@ -45,11 +48,55 @@ public class GameFactory implements IGameFactory {
         return new GameSettings(settings);
     }
 
-    public final Game createGame(final List<Player> players) {
-        return new Game(this.cards, players);
+    public PointSaladGame createGame(final List<Player> players) {
+        return this.createGame(players, List.of());
     }
 
-    public final Game createGame(final List<Player> players, final List<Bot> bots) {
-        return new Game(this.cards, players, bots);
+    private List<Card> participantCountToCards(int participantCount) {
+        int cardFromEachVeggie = 6;
+        switch (participantCount) {
+            case 3:
+                cardFromEachVeggie = 9;
+                break;
+            case 4:
+                cardFromEachVeggie = 12;
+                break;
+            case 5:
+                cardFromEachVeggie = 15;
+                break;
+            case 6:
+                cardFromEachVeggie = 18;
+                break;
+        }
+
+        HashMap<Veggie, Card> veggieToCard = new HashMap<>();
+
+        for (Card card : this.cards) {
+            veggieToCard.put(card.getVeggie(), card);
+        }
+
+        List<Card> cards = new ArrayList<>();
+
+        for (Veggie veggie : Veggie.values()) {
+            for (int i = 0; i < cardFromEachVeggie; i++) {
+                cards.add(veggieToCard.get(veggie));
+            }
+        }
+
+        List<Card> shuffled = new ArrayList<>(cards);
+        Collections.shuffle(shuffled);
+        return shuffled;
+    }
+
+    public PointSaladGame createGame(final List<Player> players, final List<Bot> bots) {
+        List<PSPlayer> psPlayers = List
+                .of(players.stream().map(player -> new PSPlayer(player)).toArray(PSPlayer[]::new));
+        List<PSBot> psBots = List
+                .of(bots.stream().map(bot -> new PSBot()).toArray(PSBot[]::new));
+        // Create a deck with all the cards from the manifest.
+        List<Card> gameCards = this.participantCountToCards(players.size() + bots.size());
+        Deck gameDeck = new Deck(gameCards);
+
+        return new PointSaladGame(new GameState(psPlayers, psBots, gameDeck));
     }
 }

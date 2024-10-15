@@ -3,7 +3,7 @@ package pointcards.game;
 import pointcards.io.input.IInput;
 import pointcards.io.output.IOutput;
 
-public class Player {
+public class Player extends Entity {
     final IInput input;
     final IOutput output;
 

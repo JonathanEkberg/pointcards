@@ -6,4 +6,6 @@ public interface INetworkServer {
     public void start(int port);
 
     public List<INetworkClient> connectClients(int numberOfClients);
+
+    public void stop();
 }

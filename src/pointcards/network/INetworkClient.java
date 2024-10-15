@@ -4,4 +4,6 @@ public interface INetworkClient {
     public String receive();
 
     public void send(String message);
+
+    public void close();
 }

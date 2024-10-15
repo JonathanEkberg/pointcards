@@ -14,6 +14,7 @@ import pointcards.utils.Logger;
 
 public class TCPServer implements INetworkServer {
     private ServerSocket socket;
+    private List<INetworkClient> clients;
 
     @Override
     public void start(int port) {
@@ -41,6 +42,7 @@ public class TCPServer implements INetworkServer {
                 clients.add(client);
             }
 
+            this.clients = clients;
             return clients;
         } catch (IOException e) {
             // TODO: Update error handling
@@ -50,4 +52,15 @@ public class TCPServer implements INetworkServer {
 
     }
 
+    @Override
+    public void stop() {
+        try {
+            for (INetworkClient client : this.clients) {
+                client.close();
+            }
+            this.socket.close();
+        } catch (IOException e) {
+
+        }
+    }
 }

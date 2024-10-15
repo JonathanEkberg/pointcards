@@ -7,8 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import pointcards.criteria.Criterias;
-import pointcards.criteria.ICriteria;
+import pointcards.game.criteria.Criterias;
+import pointcards.game.criteria.ICriteria;
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Veggie;
 import pointcards.game.pointsalad.criteria.CriteriaType;

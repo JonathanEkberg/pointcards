@@ -33,8 +33,12 @@ public class TCPClient implements INetworkClient {
         }
     }
 
-    public void close() throws IOException {
-        this.in.close();
-        this.out.close();
+    public void close() {
+        try {
+            this.in.close();
+            this.out.close();
+        } catch (IOException e) {
+            // TODO Update erorr handling
+        }
     }
 }

@@ -1,6 +1,6 @@
 package pointcards.game.pointsalad.criteria.criterias;
 
-import pointcards.criteria.ICriteria;
+import pointcards.game.criteria.ICriteria;
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Veggie;
 
@@ -24,5 +24,9 @@ public class CriteriaPer implements ICriteria {
         }
 
         return count * this.points;
+    }
+
+    public String toString() {
+        return "Per " + this.target + ": " + this.points + " points";
     }
 }
