@@ -17,4 +17,19 @@ public class Market extends BaseMarket<Card> {
             addCard(columnIdx, rowIdx, card);
         }
     }
+
+    public Card takeCard(int columnIdx) {
+        int rowIdx = 0;
+        while (rowIdx < getRows() && getCard(columnIdx, rowIdx) == null) {
+            rowIdx++;
+        }
+
+        if (rowIdx < getRows()) {
+            Card card = getCard(columnIdx, rowIdx);
+            removeCard(columnIdx, rowIdx);
+            return card;
+        }
+
+        return null;
+    }
 }

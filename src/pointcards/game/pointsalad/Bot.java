@@ -5,14 +5,18 @@ import java.util.List;
 
 import pointcards.game.BaseBot;
 
-public class Bot extends BaseBot {
-    private ArrayList<Card> hand;
+public class Bot extends BaseBot implements IPlayer {
+    private final Hand hand;
 
-    public Bot() {
-        this.hand = new ArrayList<>();
+    public Bot(Hand hand) {
+        this.hand = hand;
     }
 
-    public void addCard(Card... card) {
-        this.hand.addAll(List.of(card));
+    public Hand getHand() {
+        return hand;
+    }
+
+    public String getName() {
+        return String.valueOf(id);
     }
 }

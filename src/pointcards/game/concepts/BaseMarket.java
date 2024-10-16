@@ -36,6 +36,11 @@ public class BaseMarket<T extends BaseCard> {
         matrix[columnIdx][rowIdx] = card;
     }
 
+    public boolean hasCard(int columnIdx, int rowIdx) {
+        assertIndices(columnIdx, rowIdx);
+        return matrix[columnIdx][rowIdx] != null;
+    }
+
     public T getCard(int columnIdx, int rowIdx) {
         assertIndices(columnIdx, rowIdx);
         T card = matrix[columnIdx][rowIdx];

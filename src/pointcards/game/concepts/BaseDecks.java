@@ -3,7 +3,7 @@ package pointcards.game.concepts;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseDecks<C extends BaseCard, D extends BaseDeck<C>> {
+public class BaseDecks<D extends BaseDeck<C>, C extends BaseCard> {
     private final List<D> decks;
 
     public BaseDecks(List<D> decks) {

@@ -9,7 +9,8 @@ import pointcards.game.IPhase;
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Deck;
 import pointcards.game.pointsalad.Decks;
-import pointcards.game.pointsalad.Player;
+import pointcards.game.pointsalad.Hand;
+import pointcards.game.pointsalad.HumanPlayer;
 import pointcards.utils.Logger;
 
 public class InitPhase implements IPhase {
@@ -50,7 +51,7 @@ public class InitPhase implements IPhase {
 
         Participant turn = state.turner.getTurn();
 
-        if (turn instanceof Player) {
+        if (turn instanceof HumanPlayer) {
             return Optional.of(new PlayerTurnPhase(state));
         }
 

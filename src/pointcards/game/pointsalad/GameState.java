@@ -9,7 +9,7 @@ public class GameState extends BaseGameState {
     private Market market;
     private GameStatePrinter printer;
 
-    public GameState(List<Player> players, List<Bot> bots, Deck deck) {
+    public GameState(List<HumanPlayer> players, List<Bot> bots, Deck deck) {
         super(players, bots);
         this.decks = new Decks(List.of(deck));
         this.market = new Market();

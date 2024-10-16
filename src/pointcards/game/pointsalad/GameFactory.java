@@ -88,15 +88,16 @@ public class GameFactory implements IGameFactory {
         return shuffled;
     }
 
-    public PointSaladGame createGame(final List<BasePlayer> players, final List<BaseBot> bots) {
-        List<Player> psPlayers = List
-                .of(players.stream().map(player -> new Player(player)).toArray(Player[]::new));
-        List<Bot> psBots = List
-                .of(bots.stream().map(bot -> new Bot()).toArray(Bot[]::new));
+    public PointSaladGame createGame(final List<BasePlayer> basePlayers, final List<BaseBot> baseBots) {
+        List<HumanPlayer> humanPlayers = List
+                .of(basePlayers.stream().map(player -> new HumanPlayer(player, new Hand()))
+                        .toArray(HumanPlayer[]::new));
+        List<Bot> bots = List
+                .of(baseBots.stream().map(bot -> new Bot(new Hand())).toArray(Bot[]::new));
         // Create a deck with all the cards from the manifest.
-        List<Card> gameCards = this.participantCountToCards(players.size() + bots.size());
+        List<Card> gameCards = this.participantCountToCards(basePlayers.size() + baseBots.size());
         Deck gameDeck = new Deck(gameCards);
 
-        return new PointSaladGame(new GameState(psPlayers, psBots, gameDeck));
+        return new PointSaladGame(new GameState(humanPlayers, bots, gameDeck));
     }
 }
