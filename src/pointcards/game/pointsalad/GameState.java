@@ -1,27 +1,19 @@
 package pointcards.game.pointsalad;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import pointcards.game.Entity;
-import pointcards.game.TurnController;
+import pointcards.game.BaseGameState;
 
-public class GameState {
-    public final TurnController turner;
+public class GameState extends BaseGameState {
     private Decks decks;
     private Market market;
+    private GameStatePrinter printer;
 
     public GameState(List<Player> players, List<Bot> bots, Deck deck) {
-        this.decks = new Decks(deck);
+        super(players, bots);
+        this.decks = new Decks(List.of(deck));
         this.market = new Market();
-
-        List<Entity> entities = new ArrayList<Entity>();
-        entities.addAll(players);
-        entities.addAll(bots);
-        Collections.shuffle(entities);
-
-        this.turner = new TurnController(entities);
+        this.printer = new GameStatePrinter(this);
     }
 
     public Decks getDecks() {
@@ -30,6 +22,10 @@ public class GameState {
 
     public Market getMarket() {
         return this.market;
+    }
+
+    public GameStatePrinter getPrinter() {
+        return this.printer;
     }
 
     public void setDecks(Decks decks) {

@@ -3,13 +3,12 @@ package pointcards.game.pointsalad.phases;
 import java.util.List;
 import java.util.Optional;
 
-import pointcards.game.Entity;
+import pointcards.game.Participant;
+import pointcards.game.pointsalad.GameState;
 import pointcards.game.IPhase;
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Deck;
 import pointcards.game.pointsalad.Decks;
-import pointcards.game.pointsalad.GameState;
-import pointcards.game.pointsalad.Market.ColumnFullException;
 import pointcards.game.pointsalad.Player;
 import pointcards.utils.Logger;
 
@@ -17,18 +16,17 @@ public class InitPhase implements IPhase {
     private final GameState state;
 
     public InitPhase(GameState state) {
+        // Okay assertion for now but should probably be changed later to merge all
+        // decks into one
+        assert state.getDecks().size() == 1 : "Deck size is not 1";
         this.state = state;
     }
 
     @Override
     public Optional<IPhase> run() {
+        state.sendMessageToAllPlayers("Welcome to Point Salad!");
         Logger.debug("Running InitPhase");
         Decks decks = state.getDecks();
-        // System.out.println("Deck:");
-        // for (Card card : decks.getDeck(0).getCards()) {
-        // System.out.println(card.getVeggie());
-        // }
-        assert decks.size() == 1 : "Deck size is not 1";
         this.state.setDecks(this.splitDeck(decks));
 
         Card[] marketCards = new Card[3];
@@ -46,15 +44,11 @@ public class InitPhase implements IPhase {
 
         for (int i = 0; i < 6; i++) {
             int j = i % 3;
-            try {
-                state.getMarket().addCard(j, marketCards[j]);
-            } catch (ColumnFullException e) {
-                e.printStackTrace();
-            }
+            state.getMarket().addCard(j, marketCards[j]);
         }
         Logger.debug("Market cards: " + marketCards[0] + ", " + marketCards[1] + ", " + marketCards[2]);
 
-        Entity turn = state.turner.getTurn();
+        Participant turn = state.turner.getTurn();
 
         if (turn instanceof Player) {
             return Optional.of(new PlayerTurnPhase(state));

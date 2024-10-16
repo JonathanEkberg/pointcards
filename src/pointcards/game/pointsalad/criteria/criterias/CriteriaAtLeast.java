@@ -33,4 +33,8 @@ public class CriteriaAtLeast implements ICriteria {
 
         return veggiesWithAtLeastAmount * this.points;
     }
+
+    public String toString() {
+        return String.format(">= %d VEGGIE TYPE = %d", this.atLeastAmount, this.points);
+    }
 }

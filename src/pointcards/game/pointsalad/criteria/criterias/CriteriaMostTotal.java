@@ -22,4 +22,8 @@ public class CriteriaMostTotal implements ICriteria {
 
         return this.points;
     }
+
+    public String toString() {
+        return String.format("MOST TOTAL = %d", this.points);
+    }
 }

@@ -22,4 +22,8 @@ public class CriteriaFewestTotal implements ICriteria {
 
         return ownerCount < minOpponentCount ? this.points : 0;
     }
+
+    public String toString() {
+        return String.format("FEWEST TOTAL = %d", this.points);
+    }
 }

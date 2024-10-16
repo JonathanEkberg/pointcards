@@ -2,8 +2,8 @@ package pointcards.game.pointsalad.phases;
 
 import java.util.Optional;
 
-import pointcards.game.IPhase;
 import pointcards.game.pointsalad.GameState;
+import pointcards.game.IPhase;
 
 public class BotTurnPhase implements IPhase {
     private final GameState state;

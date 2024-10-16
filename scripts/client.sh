@@ -1,3 +1,3 @@
 #!/bin/bash
 ./scripts/compile.sh
-java -cp "lib/json.jar:bin" pointcards.Main --type client
+java -ea -cp "lib/json.jar:bin" pointcards.Main --type client

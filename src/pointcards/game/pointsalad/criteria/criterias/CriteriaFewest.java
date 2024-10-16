@@ -35,4 +35,8 @@ public class CriteriaFewest implements ICriteria {
 
         return ownerCount < minOpponentCount ? this.points : 0;
     }
+
+    public String toString() {
+        return String.format("FEWEST %s = %d", this.target, this.points);
+    }
 }

@@ -23,4 +23,19 @@ public class Criterias implements ICriteria {
 
         return points;
     }
+
+    public String toString() {
+        if (this.criterias.length == 1) {
+            return this.criterias[0].toString();
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        for (ICriteria criteria : this.criterias) {
+            sb.append(criteria.toString());
+            sb.append(", ");
+        }
+
+        return sb.toString();
+    }
 }

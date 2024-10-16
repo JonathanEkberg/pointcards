@@ -25,4 +25,8 @@ public class CriteriaOdd implements ICriteria {
 
         return ownerCount % 2 != 0 ? this.points : 0;
     }
+
+    public String toString() {
+        return String.format("ODD %s = %d", this.target, this.points);
+    }
 }

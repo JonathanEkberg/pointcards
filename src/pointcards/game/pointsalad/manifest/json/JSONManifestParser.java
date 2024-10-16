@@ -6,11 +6,10 @@ import org.json.JSONObject;
 
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.manifest.json.versions.Version;
-import pointcards.game.pointsalad.manifest.json.versions.v1.JSONCardParser;
 
 public class JSONManifestParser {
     private final JSONObject manifest;
-    private final JSONCardParser cardParser;
+    private final IJSONCardParser cardParser;
 
     public JSONManifestParser(JSONObject manifest) {
         if (!this.isValid()) {
@@ -19,12 +18,18 @@ public class JSONManifestParser {
         }
 
         this.manifest = manifest;
-        this.cardParser = new JSONCardParser(manifest.getJSONObject("cards"));
+        IJSONCardParser cardParser = JSONCardParserFactory.getParser(JSONManifestParser.getVersion(manifest),
+                manifest.getJSONObject("cards"));
+        this.cardParser = cardParser;
+    }
+
+    public static Version getVersion(JSONObject manifest) {
+        int version = manifest.getJSONObject("meta").getNumber("version").intValue();
+        return Version.intVersionToVersion(version);
     }
 
     public Version getVersion() {
-        int version = this.manifest.getJSONObject("meta").getNumber("version").intValue();
-        return Version.intVersionToVersion(version);
+        return JSONManifestParser.getVersion(this.manifest);
     }
 
     private boolean isValid() {

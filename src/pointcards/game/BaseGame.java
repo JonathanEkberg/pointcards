@@ -2,10 +2,10 @@ package pointcards.game;
 
 import java.util.Optional;
 
-public abstract class AbstractGame implements IGame {
+public class BaseGame implements IGame {
     private IPhase startPhase;
 
-    public AbstractGame(IPhase startPhase) {
+    public BaseGame(IPhase startPhase) {
         this.startPhase = startPhase;
     }
 

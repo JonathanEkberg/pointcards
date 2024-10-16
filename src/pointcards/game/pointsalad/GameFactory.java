@@ -8,9 +8,9 @@ import java.util.List;
 import org.json.JSONObject;
 
 import pointcards.game.BaseBot;
+import pointcards.game.BasePlayer;
 import pointcards.game.IGameFactory;
 import pointcards.game.pointsalad.manifest.json.JSONManifestParser;
-import pointcards.game.BasePlayer;
 import pointcards.io.JSONFileReader;
 import pointcards.io.input.IInput;
 import pointcards.settings.GameSettings;

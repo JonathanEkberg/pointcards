@@ -24,4 +24,8 @@ public class CriteriaPerMissingType implements ICriteria {
 
         return (Veggie.values().length - veggieCount.size()) * this.points;
     }
+
+    public String toString() {
+        return String.format("PER MISSING TYPE = %d", this.points);
+    }
 }

@@ -41,4 +41,8 @@ public class CriteriaMost implements ICriteria {
         return ownerCount > maxOpponentCount ? this.points : 0;
 
     }
+
+    public String toString() {
+        return String.format("MOST %s = %d", target.toString(), points);
+    }
 }

@@ -58,8 +58,8 @@ public class TestCriteria {
                 // Odd cards
                 new SingleCriteriaTest("[ODD]: Does not have odd", new CriteriaOdd(Veggie.CARROT, 3), 0, 2, 0),
                 new SingleCriteriaTest("[ODD]: Has odd", new CriteriaOdd(Veggie.CARROT, 3), 3, 3, 0),
+                // Omitted tests for remaining criteria as it is not required for the exam.
         };
-
         for (SingleCriteriaTest test : tests) {
             test.run();
         }

@@ -27,4 +27,8 @@ public class CriteriaSet implements ICriteria {
         Collection<Integer> counts = veggieCount.values();
         return counts.stream().min(Integer::compareTo).orElse(0) * this.points;
     }
+
+    public String toString() {
+        return String.format("SET = %d", this.points);
+    }
 }

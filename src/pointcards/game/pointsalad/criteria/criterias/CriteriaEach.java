@@ -28,4 +28,18 @@ public class CriteriaEach implements ICriteria {
 
         return has == targets.length ? this.points : 0;
     }
+
+    public String toString() {
+        if (targets.length == 1) {
+            return String.format("EACH %s = %d", targets[0].toString(), points);
+        }
+
+        String[] veggies = new String[targets.length];
+
+        for (int i = 0; i < targets.length; i++) {
+            veggies[i] = targets[i].toString();
+        }
+
+        return String.format("EACH %s = %d", String.join(" or ", veggies), points);
+    }
 }

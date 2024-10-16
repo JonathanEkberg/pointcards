@@ -1,10 +1,13 @@
 package pointcards.game.pointsalad.phases;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-import pointcards.game.Entity;
-import pointcards.game.IPhase;
+import pointcards.game.Participant;
 import pointcards.game.pointsalad.GameState;
+import pointcards.game.pointsalad.GameStatePrinter;
+import pointcards.game.IPhase;
 import pointcards.game.pointsalad.Player;
 import pointcards.io.input.IInput;
 import pointcards.io.output.IOutput;
@@ -22,7 +25,7 @@ public class PlayerTurnPhase implements IPhase {
         try {
             Player player = (Player) state.turner.getTurn();
 
-            printPlayerTurn(player);
+            printTurnGameState(player);
             handlePlayerTurn(player);
             // var input = player.getInput();
 
@@ -40,7 +43,7 @@ public class PlayerTurnPhase implements IPhase {
         }
         // if ()
         state.turner.next();
-        Entity nextPlayer = state.turner.getTurn();
+        Participant nextPlayer = state.turner.getTurn();
 
         if (nextPlayer instanceof Player) {
             return Optional.of(new PlayerTurnPhase(state));
@@ -49,12 +52,28 @@ public class PlayerTurnPhase implements IPhase {
         return Optional.of(new BotTurnPhase(state));
     }
 
-    private void printPlayerTurn(Player player) {
+    private void printTurnGameState(Player player) {
         IOutput output = player.getOutput();
-        output.send(
-                String.format(
-                        "It's your turn!\n\nCriteria: %s\nVeggies: %s\n\nThe piles are:\nPoint cards: %s\nVeggie cards: %s\n",
-                        "TODO", "TODO", "TODO", "TODO"));
+        GameStatePrinter printer = state.getPrinter();
+        String[] lines = new String[] {
+                "It's your turn!",
+                "",
+                "Criteria: TODO",
+                "Veggies: TODO",
+                "",
+                "The piles are:",
+                printer.getPointCardChoics(),
+                "Veggie cards: TODO",
+                ""
+        };
+        for (String line : lines) {
+            output.send(line);
+        }
+        // output.send(
+        // String.format(
+        // "It's your turn!\n\nCriteria: %s\nVeggies: %s\n\nThe piles are:\nPoint cards:
+        // %s\nVeggie cards: %s\n",
+        // "TODO", "TODO", "TODO", "TODO"));
     }
 
     private void handlePlayerTurn(Player player) {

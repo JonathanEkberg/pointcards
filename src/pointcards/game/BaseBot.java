@@ -1,5 +1,5 @@
 package pointcards.game;
 
-public class BaseBot extends Entity {
+public class BaseBot extends Participant {
 
 }

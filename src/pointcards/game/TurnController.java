@@ -4,17 +4,17 @@ import java.util.List;
 
 public class TurnController {
     private int turn = 0;
-    private final Entity[] turners;
+    private final Participant[] turners;
 
-    public TurnController(List<Entity> turners) {
-        this.turners = new Entity[turners.size()];
+    public TurnController(List<Participant> turners) {
+        this.turners = new Participant[turners.size()];
 
         for (int i = 0; i < turners.size(); i++) {
             this.turners[i] = turners.get(i);
         }
     }
 
-    public Entity getTurn() {
+    public Participant getTurn() {
         return this.turners[this.turn];
     }
 

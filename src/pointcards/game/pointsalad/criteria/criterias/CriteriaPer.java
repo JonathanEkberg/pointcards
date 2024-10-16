@@ -27,6 +27,6 @@ public class CriteriaPer implements ICriteria {
     }
 
     public String toString() {
-        return "Per " + this.target + ": " + this.points + " points";
+        return String.format("PER %s = %d", this.target, this.points);
     }
 }

@@ -1,8 +1,9 @@
 package pointcards.game.pointsalad;
 
+import pointcards.game.concepts.BaseCard;
 import pointcards.game.pointsalad.criteria.ICriteria;
 
-public class Card {
+public class Card extends BaseCard {
     private final Veggie veggie;
     private final ICriteria criteria;
 
