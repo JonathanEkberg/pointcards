@@ -3,10 +3,12 @@ package pointcards.game.pointsalad.phases;
 import java.util.Optional;
 
 import pointcards.game.Participant;
+import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.GameState;
 import pointcards.game.pointsalad.GameStatePrinter;
 import pointcards.game.IPhase;
 import pointcards.game.pointsalad.HumanPlayer;
+import pointcards.game.pointsalad.Market;
 import pointcards.io.input.IInput;
 import pointcards.io.output.IOutput;
 import pointcards.utils.Logger;
@@ -86,7 +88,7 @@ public class PlayerTurnPhase implements IPhase {
 
         if (choice.length() != 2) {
             // TODO: Handle invalid input
-            throw new RuntimeException("Invalid input");
+            throw new RuntimeException(String.format("Invalid input: %s (size: %d)", choice, choice.length()));
         }
 
         char[] chars = choice.toLowerCase().toCharArray();
@@ -100,6 +102,7 @@ public class PlayerTurnPhase implements IPhase {
         }
 
         Logger.debug("User input: " + sb.toString());
+        handleTakeMarketCards(player, chars);
     }
 
     private void handleTakePointCard(HumanPlayer player, int deckIdx) {
@@ -108,24 +111,42 @@ public class PlayerTurnPhase implements IPhase {
         });
     }
 
-    private void handleTakeMarketCards(HumanPlayer player, char[] choices) {
-        // TODO
-        // Map chars to column and row indices
-        int columnIdx = -1;
-        int rowIdx = -1;
-
-        switch (choices[0]) {
+    private int[] charToMarketPosition(char choice) {
+        switch (choice) {
             case 'a':
-                columnIdx = 0;
-                break;
+                return new int[] { 0, 0 };
             case 'b':
-                columnIdx = 1;
-                break;
+                return new int[] { 1, 0 };
             case 'c':
-                columnIdx = 2;
-                break;
+                return new int[] { 2, 0 };
+            case 'd':
+                return new int[] { 0, 1 };
+            case 'e':
+                return new int[] { 1, 1 };
+            case 'f':
+                return new int[] { 2, 1 };
             default:
-                throw new RuntimeException("Invalid column choice");
+                throw new RuntimeException("Invalid market card choice");
         }
+    }
+
+    private void handleTakeMarketCards(HumanPlayer player, char[] choices) {
+        Market market = state.getMarket();
+
+        for (char choice : choices) {
+            int[] coords = charToMarketPosition(choice);
+
+            int columnIdx = coords[0];
+            int rowIdx = coords[1];
+
+            if (!market.hasCard(columnIdx, rowIdx)) {
+                throw new RuntimeException("No card at position " + choice);
+            }
+
+            Card card = market.takeCard(columnIdx, rowIdx);
+            player.getHand().addVeggieCard(card);
+        }
+
+        state.refillMarketCards();
     }
 }

@@ -31,9 +31,9 @@ public class GameClient {
         // Main thread handles user input
         Scanner scanner = new Scanner(System.in);
         while (running) {
-            Logger.debug("Awaiting user input");
+            // Logger.debug("Awaiting user input");
             String message = scanner.nextLine(); // Keep accepting input from the user
-            Logger.debug("User input: " + message);
+            // Logger.debug("User input: " + message);
             if (running) {
                 sendToServer(message); // Send input to the server
             }
@@ -45,7 +45,7 @@ public class GameClient {
 
     private void readFromServer() {
         String data = "";
-        Logger.debug("Waiting for data...");
+        // Logger.debug("Waiting for data...");
         while (running) {
             try {
                 data = (String) this.in.readObject();

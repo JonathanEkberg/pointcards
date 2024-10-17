@@ -15,6 +15,7 @@ import pointcards.io.JSONFileReader;
 import pointcards.io.input.IInput;
 import pointcards.settings.GameSettings;
 import pointcards.settings.OptionalGameSettings;
+import pointcards.utils.Shuffler;
 
 public class GameFactory implements IGameFactory {
     private final List<Card> cards;
@@ -84,14 +85,11 @@ public class GameFactory implements IGameFactory {
         }
 
         List<Card> shuffled = new ArrayList<>(cards);
-        Collections.shuffle(shuffled);
+        Shuffler.shuffle(shuffled);
         return shuffled;
     }
 
     public PointSaladGame createGame(final List<BasePlayer> basePlayers, final List<BaseBot> baseBots) {
-        for (BasePlayer player : basePlayers) {
-            System.out.println(player.getName());
-        }
         List<HumanPlayer> humanPlayers = List
                 .of(basePlayers.stream().map(player -> new HumanPlayer(player, new Hand()))
                         .toArray(HumanPlayer[]::new));

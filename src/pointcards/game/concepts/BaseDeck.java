@@ -1,8 +1,12 @@
 package pointcards.game.concepts;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import pointcards.utils.Shuffler;
 
 public class BaseDeck<C extends BaseCard> {
     private final List<C> cards;
@@ -28,6 +32,10 @@ public class BaseDeck<C extends BaseCard> {
         this.cards.remove(0);
 
         return Optional.of(card);
+    }
+
+    public void shuffle() {
+        Shuffler.shuffle(this.cards);
     }
 
     public int size() {

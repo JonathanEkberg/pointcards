@@ -8,28 +8,21 @@ public class Market extends BaseMarket<Card> {
     }
 
     public void addCard(int columnIdx, Card card) {
-        int rowIdx = 0;
-        while (rowIdx < getRows() && getCard(columnIdx, rowIdx) != null) {
-            rowIdx++;
-        }
-
-        if (rowIdx < getRows()) {
-            addCard(columnIdx, rowIdx, card);
+        for (int row = 0; row < getRows(); row++) {
+            if (!hasCard(columnIdx, row)) {
+                addCard(columnIdx, row, card);
+                return;
+            }
         }
     }
 
     public Card takeCard(int columnIdx) {
-        int rowIdx = 0;
-        while (rowIdx < getRows() && getCard(columnIdx, rowIdx) == null) {
-            rowIdx++;
+        for (int row = getRows() - 1; row >= 0; row--) {
+            if (hasCard(columnIdx, row)) {
+                return takeCard(columnIdx, row);
+            }
         }
 
-        if (rowIdx < getRows()) {
-            Card card = getCard(columnIdx, rowIdx);
-            removeCard(columnIdx, rowIdx);
-            return card;
-        }
-
-        return null;
+        throw new IllegalStateException("Tried to take card without checking if it exists first.");
     }
 }

@@ -2,6 +2,8 @@ package pointcards.game.pointsalad;
 
 import java.util.List;
 
+import pointcards.utils.Logger;
+
 public class GameStatePrinter {
     private final GameState state;
 
@@ -41,12 +43,15 @@ public class GameStatePrinter {
         for (int i = 0; i < 6; i++) {
             int columnIndex = i % 3;
             int rowIndex = i % 2;
-            boolean shouldLineBreak = rowIndex > 0 && columnIndex == 2;
+            boolean shouldLineBreak = rowIndex > 1 && columnIndex == 2;
 
             if (!market.hasCard(columnIndex, rowIndex)) {
+                sb.append('\t');
                 sb.append(shouldLineBreak ? '\n' : '\t');
                 continue;
             }
+
+            String veggie = market.getCard(columnIndex, rowIndex).getVeggie().toString();
 
             // New line and start with two tags if is first column and not first row
             if (rowIndex > 0 && columnIndex == 0) {
@@ -54,8 +59,7 @@ public class GameStatePrinter {
             }
 
             char columnChar = (char) ('A' + i);
-            sb.append(String.format("[%c]: %s%s", columnChar,
-                    market.getCard(columnIndex, rowIndex).getVeggie().toString(), shouldLineBreak ? '\n' : '\t'));
+            sb.append(String.format("[%c]: %s%s", columnChar, veggie, shouldLineBreak ? '\n' : '\t'));
         }
 
         return sb.toString();
@@ -102,10 +106,12 @@ public class GameStatePrinter {
 
         List<Card> cards = hand.getVeggieCards();
 
-        for (Card card : cards) {
-            sb.append(card.getCriteria().toString());
+        // for (Card card : cards) {
+        for (int i = 0; i < cards.size(); i++) {
+            Card card = cards.get(i);
+            sb.append(card.getVeggie().toString());
 
-            if (cards.size() > 1) {
+            if (cards.size() > 1 && i < cards.size() - 1) {
                 sb.append(", ");
             }
         }

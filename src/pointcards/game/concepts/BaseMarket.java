@@ -2,6 +2,8 @@ package pointcards.game.concepts;
 
 import java.lang.reflect.Array;
 
+import pointcards.utils.Logger;
+
 public class BaseMarket<T extends BaseCard> {
     private final int columns;
     private final int rows;

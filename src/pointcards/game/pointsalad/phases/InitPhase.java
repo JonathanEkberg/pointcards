@@ -11,6 +11,7 @@ import pointcards.game.pointsalad.Deck;
 import pointcards.game.pointsalad.Decks;
 import pointcards.game.pointsalad.Hand;
 import pointcards.game.pointsalad.HumanPlayer;
+import pointcards.game.pointsalad.Market;
 import pointcards.utils.Logger;
 
 public class InitPhase implements IPhase {
@@ -30,24 +31,24 @@ public class InitPhase implements IPhase {
         Decks decks = state.getDecks();
         this.state.setDecks(this.splitDeck(decks));
 
-        Card[] marketCards = new Card[3];
-
+        // Grab market cards
+        Card[] marketCards = new Card[6];
         for (int i = 0; i < 6; i++) {
             int j = i % 3;
-            Optional<Card> card = state.getDecks().getDeck(j).takeCard();
+            Deck deck = state.getDecks().getDeck(j);
+            assert deck.size() > 1 : "Deck size is not greater than 2";
 
-            if (!card.isPresent()) {
-                throw new IllegalStateException("Deck is empty");
-            }
+            Card card = deck.takeCard().get();
 
-            marketCards[j] = card.get();
+            marketCards[i] = card;
         }
 
+        // Place market cards
+        Market market = state.getMarket();
         for (int i = 0; i < 6; i++) {
             int j = i % 3;
-            state.getMarket().addCard(j, marketCards[j]);
+            market.addCard(j, marketCards[i]);
         }
-        Logger.debug("Market cards: " + marketCards[0] + ", " + marketCards[1] + ", " + marketCards[2]);
 
         Participant turn = state.turner.getTurn();
 
