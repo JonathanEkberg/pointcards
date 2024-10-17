@@ -40,27 +40,55 @@ public class GameStatePrinter {
         sb.append("Veggie Cards:\t");
         Market market = state.getMarket();
 
-        for (int i = 0; i < 6; i++) {
-            int columnIndex = i % 3;
-            int rowIndex = i % 2;
-            boolean shouldLineBreak = rowIndex > 1 && columnIndex == 2;
+        for (int row = 0; row < 2; row++) {
+            for (int column = 0; column < 3; column++) {
+                boolean shouldLineBreak = row > 1 && column == 2;
 
-            if (!market.hasCard(columnIndex, rowIndex)) {
-                sb.append('\t');
-                sb.append(shouldLineBreak ? '\n' : '\t');
-                continue;
+                if (!market.hasCard(column, row)) {
+                    sb.append('\t');
+
+                    if (shouldLineBreak) {
+                        sb.append('\n');
+                    } else {
+                        sb.append('\t');
+                    }
+
+                    continue;
+                }
+
+                // New line and start with two tags if is first column and not first row
+                if (row > 0 && column == 0) {
+                    sb.append("\n\t\t");
+                }
+
+                Card card = market.getCard(column, row);
+                sb.append(String.format("[%c] %s%c", (char) ('A' + (column + row * 3)), card.getVeggie().toString(),
+                        shouldLineBreak ? '\n' : '\t'));
             }
-
-            String veggie = market.getCard(columnIndex, rowIndex).getVeggie().toString();
-
-            // New line and start with two tags if is first column and not first row
-            if (rowIndex > 0 && columnIndex == 0) {
-                sb.append("\n\t\t");
-            }
-
-            char columnChar = (char) ('A' + i);
-            sb.append(String.format("[%c]: %s%s", columnChar, veggie, shouldLineBreak ? '\n' : '\t'));
         }
+
+        // for (int i = 0; i < 6; i++) {
+        // int columnIndex = i % 3;
+        // int rowIndex = i % 2;
+        // boolean shouldLineBreak = rowIndex > 1 && columnIndex == 2;
+
+        // if (!market.hasCard(columnIndex, rowIndex)) {
+        // sb.append('\t');
+        // sb.append(shouldLineBreak ? '\n' : '\t');
+        // continue;
+        // }
+
+        // String veggie = market.getCard(columnIndex, rowIndex).getVeggie().toString();
+
+        // // New line and start with two tags if is first column and not first row
+        // if (rowIndex > 0 && columnIndex == 0) {
+        // sb.append("\n\t\t");
+        // }
+
+        // char columnChar = (char) ('A' + i);
+        // sb.append(String.format("[%c]: %s%s", columnChar, veggie, shouldLineBreak ?
+        // '\n' : '\t'));
+        // }
 
         return sb.toString();
     }
