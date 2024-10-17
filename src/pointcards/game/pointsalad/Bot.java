@@ -8,7 +8,8 @@ import pointcards.game.BaseBot;
 public class Bot extends BaseBot implements IPlayer {
     private final Hand hand;
 
-    public Bot(Hand hand) {
+    public Bot(String name, Hand hand) {
+        super(name);
         this.hand = hand;
     }
 
@@ -16,7 +17,4 @@ public class Bot extends BaseBot implements IPlayer {
         return hand;
     }
 
-    public String getName() {
-        return String.valueOf(id);
-    }
 }

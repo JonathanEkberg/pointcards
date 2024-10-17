@@ -26,27 +26,36 @@ public class Logger {
         }
     }
 
-    public static void info(Object message) {
+    private static String objToStr(Object... messages) {
+        StringBuilder sb = new StringBuilder();
+        for (Object message : messages) {
+            sb.append(" ");
+            sb.append(message);
+        }
+        return sb.toString();
+    }
+
+    public static void info(Object... message) {
         if (logLevel.ordinal() <= LogLevel.INFO.ordinal()) {
-            System.out.println(GREEN + "[INFO]" + RESET + " " + message);
+            System.out.println(GREEN + "[INFO]" + RESET + " " + objToStr(message));
         }
     }
 
-    public static void logError(Object message) {
+    public static void error(Object... message) {
         if (logLevel.ordinal() <= LogLevel.ERROR.ordinal()) {
-            System.err.println(RED + "[ERROR]" + RESET + " " + message);
+            System.err.println(RED + "[ERROR]" + RESET + " " + objToStr(message));
         }
     }
 
-    public static void logWarning(Object message) {
+    public static void warn(Object... message) {
         if (logLevel.ordinal() <= LogLevel.WARN.ordinal()) {
-            System.out.println(ORANGE + "[WARNING]" + RESET + " " + message);
+            System.out.println(ORANGE + "[WARNING]" + RESET + " " + objToStr(message));
         }
     }
 
-    public static void debug(Object message) {
+    public static void debug(Object... message) {
         if (logLevel.ordinal() <= LogLevel.DEBUG.ordinal()) {
-            System.out.println(BLUE + "[DEBUG]" + RESET + " " + message);
+            System.out.println(BLUE + "[DEBUG]" + RESET + " " + objToStr(message));
         }
     }
 }

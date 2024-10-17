@@ -1,14 +1,11 @@
 package pointcards.game.pointsalad.phases;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import pointcards.game.Participant;
 import pointcards.game.pointsalad.GameState;
 import pointcards.game.pointsalad.GameStatePrinter;
 import pointcards.game.IPhase;
-import pointcards.game.pointsalad.Hand;
 import pointcards.game.pointsalad.HumanPlayer;
 import pointcards.io.input.IInput;
 import pointcards.io.output.IOutput;
@@ -25,8 +22,15 @@ public class PlayerTurnPhase implements IPhase {
     public Optional<IPhase> run() {
         HumanPlayer player = (HumanPlayer) state.turner.getTurn();
 
+        String message = String.format("Player %s is playing\n", player.getName());
+        state.sendMessageToOtherPlayers(player, message);
+
         printTurnGameState(player);
         handlePlayerTurn(player);
+
+        message = String.format("Player %s's hand is:\n%s\n", player.getName(),
+                state.getPrinter().getPlayerHand(player));
+        state.sendMessageToOtherPlayers(player, message);
 
         state.turner.next();
         Participant nextPlayer = state.turner.getTurn();
@@ -45,8 +49,9 @@ public class PlayerTurnPhase implements IPhase {
                 "********************************",
                 "It's your turn!",
                 "",
-                printer.getPlayerCriteriaCards(player),
-                "Veggies: TODO",
+                printer.getPlayerHand(player),
+                // printer.getPlayerCriteriaCards(player),
+                // "Veggies: TODO",
                 "",
                 "The piles are:",
                 printer.getPointCardChoics(),

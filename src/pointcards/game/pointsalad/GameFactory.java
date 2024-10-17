@@ -35,7 +35,7 @@ public class GameFactory implements IGameFactory {
     public GameSettings setGameSettings(final OptionalGameSettings settings, final IInput input) {
         if (settings.getNumberOfPlayers().isEmpty() || settings.getNumberOfPlayers().get() < 1
                 || settings.getNumberOfPlayers().get() > 6) {
-            var players = input.queryInt("Enter the number of players", 1,
+            int players = input.queryInt("Enter the number of players", 1,
                     Integer.MAX_VALUE);
             settings.setNumberOfPlayers(players);
         }
@@ -89,11 +89,14 @@ public class GameFactory implements IGameFactory {
     }
 
     public PointSaladGame createGame(final List<BasePlayer> basePlayers, final List<BaseBot> baseBots) {
+        for (BasePlayer player : basePlayers) {
+            System.out.println(player.getName());
+        }
         List<HumanPlayer> humanPlayers = List
                 .of(basePlayers.stream().map(player -> new HumanPlayer(player, new Hand()))
                         .toArray(HumanPlayer[]::new));
         List<Bot> bots = List
-                .of(baseBots.stream().map(bot -> new Bot(new Hand())).toArray(Bot[]::new));
+                .of(baseBots.stream().map(bot -> new Bot(bot.getName(), new Hand())).toArray(Bot[]::new));
         // Create a deck with all the cards from the manifest.
         List<Card> gameCards = this.participantCountToCards(basePlayers.size() + baseBots.size());
         Deck gameDeck = new Deck(gameCards);

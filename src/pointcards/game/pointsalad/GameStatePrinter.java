@@ -61,14 +61,53 @@ public class GameStatePrinter {
         return sb.toString();
     }
 
+    public String getPlayerHand(IPlayer player) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getPlayerCriteriaCards(player));
+        sb.append("\n");
+        sb.append(getPlayerVeggieCards(player));
+        return sb.toString();
+        // sb.append("Criteria:\t");
+        // Hand hand = player.getHand();
+
+        // for (Card card : hand.getCriteriaCards()) {
+        // sb.append(card.getCriteria().toString());
+        // sb.append(", ");
+        // }
+
+        // return sb.toString();
+    }
+
     public String getPlayerCriteriaCards(IPlayer player) {
         StringBuilder sb = new StringBuilder();
         sb.append("Criteria:\t");
         Hand hand = player.getHand();
 
-        for (Card card : hand.getCriteriaCards()) {
+        List<Card> cards = hand.getCriteriaCards();
+        for (Card card : cards) {
             sb.append(card.getCriteria().toString());
-            sb.append(", ");
+
+            if (cards.size() > 1) {
+                sb.append(", ");
+            }
+        }
+
+        return sb.toString();
+    }
+
+    public String getPlayerVeggieCards(IPlayer player) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Veggies:\t");
+        Hand hand = player.getHand();
+
+        List<Card> cards = hand.getVeggieCards();
+
+        for (Card card : cards) {
+            sb.append(card.getCriteria().toString());
+
+            if (cards.size() > 1) {
+                sb.append(", ");
+            }
         }
 
         return sb.toString();

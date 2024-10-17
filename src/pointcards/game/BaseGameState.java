@@ -23,4 +23,14 @@ public class BaseGameState {
             player.getOutput().send(message);
         }
     }
+
+    public void sendMessageToOtherPlayers(BasePlayer player, String message) {
+        for (BasePlayer p : this.players) {
+            if (player.equals(p)) {
+                continue;
+            }
+
+            p.getOutput().send(message);
+        }
+    }
 }

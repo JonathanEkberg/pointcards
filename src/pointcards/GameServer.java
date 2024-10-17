@@ -37,8 +37,9 @@ public class GameServer {
 
     private IGame initGame(IGameFactory factory, GameSettings settings) throws IOException {
         final List<BasePlayer> players = new ArrayList<>(settings.getNumberOfPlayers());
+        int playerId = 1;
         // The server player. Always at least one.
-        players.add(new BasePlayer(new LocalConsoleInput(), new LocalConsoleOutput()));
+        players.add(new BasePlayer(String.valueOf(playerId++), new LocalConsoleInput(), new LocalConsoleOutput()));
 
         // Remote players (if any)
         if (settings.getNumberOfPlayers() > 1) {
@@ -47,7 +48,7 @@ public class GameServer {
             for (INetworkClient client : clients) {
                 IInput input = new RemoteInput(client);
                 IOutput output = new RemoteOutput(client);
-                BasePlayer player = new BasePlayer(input, output);
+                BasePlayer player = new BasePlayer(String.valueOf(playerId++), input, output);
                 players.add(player);
             }
         }
@@ -59,7 +60,7 @@ public class GameServer {
         final List<BaseBot> bots = new ArrayList<>(settings.getNumberOfBots());
 
         for (int i = 0; i < settings.getNumberOfBots(); i++) {
-            var bot = new BaseBot();
+            BaseBot bot = new BaseBot(String.format("Bot %d", i + 1));
             bots.add(bot);
         }
 
