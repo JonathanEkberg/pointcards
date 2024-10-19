@@ -1,8 +1,6 @@
 package pointcards.game.concepts;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +28,17 @@ public class BaseDeck<C extends BaseCard> {
 
         C card = this.cards.get(0);
         this.cards.remove(0);
+
+        return Optional.of(card);
+    }
+
+    public Optional<C> takeFromBottom() {
+        if (this.size() == 0) {
+            return Optional.empty();
+        }
+
+        C card = this.cards.get(this.size() - 1);
+        this.cards.remove(this.size() - 1);
 
         return Optional.of(card);
     }

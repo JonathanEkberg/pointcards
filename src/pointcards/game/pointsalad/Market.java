@@ -25,4 +25,18 @@ public class Market extends BaseMarket<Card> {
 
         throw new IllegalStateException("Tried to take card without checking if it exists first.");
     }
+
+    public int size() {
+        int size = 0;
+
+        for (int column = 0; column < getColumns(); column++) {
+            for (int row = 0; row < getRows(); row++) {
+                if (hasCard(column, row)) {
+                    size++;
+                }
+            }
+        }
+
+        return size;
+    }
 }

@@ -1,7 +1,6 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
-import static test.utils.Hand.createHand;
 
 import org.junit.Test;
 
@@ -12,6 +11,7 @@ import pointcards.game.pointsalad.criteria.criterias.CriteriaEven;
 import pointcards.game.pointsalad.criteria.criterias.CriteriaFewest;
 import pointcards.game.pointsalad.criteria.criterias.CriteriaMost;
 import pointcards.game.pointsalad.criteria.criterias.CriteriaOdd;
+import test.utils.TestUtils;
 
 public class TestCriteria {
     private class SingleCriteriaTest {
@@ -32,10 +32,10 @@ public class TestCriteria {
         }
 
         public void run() {
-            Card[] owner = createHand(Veggie.CARROT, ownerCardAmount);
+            Card[] owner = TestUtils.createHand(Veggie.CARROT, ownerCardAmount);
             Card[][] opponents = new Card[OPPONENT_COUNT][];
             for (int i = 0; i < OPPONENT_COUNT; i++) {
-                opponents[i] = createHand(Veggie.CARROT, opponentsCardAmount);
+                opponents[i] = TestUtils.createHand(Veggie.CARROT, opponentsCardAmount);
             }
 
             var points = criteria.calculatePoints(owner, opponents);

@@ -7,6 +7,7 @@ public class TurnController {
     private final Participant[] turners;
 
     public TurnController(List<Participant> turners) {
+        assert turners.size() > 0 : "No turners provided";
         this.turners = new Participant[turners.size()];
 
         for (int i = 0; i < turners.size(); i++) {

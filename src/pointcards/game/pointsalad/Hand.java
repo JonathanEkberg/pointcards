@@ -22,4 +22,12 @@ public class Hand {
     public void addCriteriasCard(Card... card) {
         this.criterias.addAll(List.of(card));
     }
+
+    public void removeVeggieCard(Card card) {
+        this.veggies.remove(card);
+    }
+
+    public void removeCriteriaCard(Card card) {
+        this.criterias.remove(card);
+    }
 }

@@ -24,12 +24,16 @@ public class InitPhase implements IPhase {
         this.state = state;
     }
 
+    public GameState getState() {
+        return this.state;
+    }
+
     @Override
     public Optional<IPhase> run() {
         state.sendMessageToAllPlayers("Welcome to Point Salad!");
         Logger.debug("Running InitPhase");
         Decks decks = state.getDecks();
-        this.state.setDecks(this.splitDeck(decks));
+        this.state.setDecks(InitPhase.splitDeck(decks));
 
         // Grab market cards
         Card[] marketCards = new Card[6];
@@ -62,7 +66,7 @@ public class InitPhase implements IPhase {
     /**
      * Convert a single deck into three decks ready for play.
      */
-    public Decks splitDeck(Decks singleDeck) {
+    public static Decks splitDeck(Decks singleDeck) {
         Deck deck = singleDeck.getDeck(0);
         List<Deck> decks = List.of(new Deck(), new Deck(), new Deck());
 

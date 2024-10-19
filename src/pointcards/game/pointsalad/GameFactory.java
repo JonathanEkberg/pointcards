@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.json.JSONObject;
 
@@ -23,7 +24,6 @@ public class GameFactory implements IGameFactory {
     public GameFactory(String manifestPath) throws Exception {
         try {
             JSONFileReader reader = new JSONFileReader(manifestPath);
-            System.out.println("Reading manifest file from " + manifestPath);
             JSONObject manifest = reader.readJsonFile();
             JSONManifestParser manifestParser = new JSONManifestParser(manifest);
             this.cards = manifestParser.getCards();
@@ -34,16 +34,21 @@ public class GameFactory implements IGameFactory {
     }
 
     public GameSettings setGameSettings(final OptionalGameSettings settings, final IInput input) {
-        if (settings.getNumberOfPlayers().isEmpty() || settings.getNumberOfPlayers().get() < 1
-                || settings.getNumberOfPlayers().get() > 6) {
+        Optional<Integer> numberOfPlayers = settings.getNumberOfPlayers();
+        if (numberOfPlayers.isEmpty() || numberOfPlayers.get() < 1 || numberOfPlayers.get() > 6) {
             int players = input.queryInt("Enter the number of players", 1,
-                    Integer.MAX_VALUE);
+                    6);
             settings.setNumberOfPlayers(players);
+        }
+
+        if (settings.getNumberOfPlayers().get() == 6) {
+            settings.setNumberOfBots(0);
+            return new GameSettings(settings);
         }
 
         if (settings.getNumberOfBots().isEmpty() || settings.getNumberOfBots().get() < 0
                 || settings.getNumberOfBots().get() > 5) {
-            var bots = input.queryInt("Enter the number of bots", 0, Integer.MAX_VALUE);
+            var bots = input.queryInt("Enter the number of bots", 0, 5 - settings.getNumberOfPlayers().get());
             settings.setNumberOfBots(bots);
         }
         return new GameSettings(settings);
@@ -53,9 +58,13 @@ public class GameFactory implements IGameFactory {
         return this.createGame(players, List.of());
     }
 
-    private List<Card> participantCountToCards(int participantCount) {
-        int cardFromEachVeggie = 6;
+    protected List<Card> participantCountToCards(int participantCount) {
+        int cardFromEachVeggie = -1;
+
         switch (participantCount) {
+            case 2:
+                cardFromEachVeggie = 6;
+                break;
             case 3:
                 cardFromEachVeggie = 9;
                 break;
@@ -68,6 +77,8 @@ public class GameFactory implements IGameFactory {
             case 6:
                 cardFromEachVeggie = 18;
                 break;
+            default:
+                throw new IllegalArgumentException("Player count must be between 2 and 6");
         }
 
         HashMap<Veggie, Card> veggieToCard = new HashMap<>();
@@ -90,6 +101,10 @@ public class GameFactory implements IGameFactory {
     }
 
     public PointSaladGame createGame(final List<BasePlayer> basePlayers, final List<BaseBot> baseBots) {
+        if (basePlayers.size() + baseBots.size() < 2 || basePlayers.size() + baseBots.size() > 6) {
+            throw new IllegalArgumentException("Player + bot count must be between 2 and 6");
+        }
+
         List<HumanPlayer> humanPlayers = List
                 .of(basePlayers.stream().map(player -> new HumanPlayer(player, new Hand()))
                         .toArray(HumanPlayer[]::new));
