@@ -3,11 +3,13 @@ package pointcards.game.pointsalad.phases;
 import java.util.Optional;
 
 import pointcards.game.Participant;
+import pointcards.game.pointsalad.Deck;
 import pointcards.game.pointsalad.GameState;
 import pointcards.game.pointsalad.GameStatePrinter;
 import pointcards.game.IPhase;
 import pointcards.game.pointsalad.HumanPlayer;
 import pointcards.io.output.IOutput;
+import pointcards.utils.Logger;
 
 public class PlayerTurnPhase implements IPhase {
     private final GameState state;
@@ -29,6 +31,19 @@ public class PlayerTurnPhase implements IPhase {
 
         printTurnGameState(player);
         player.doTurn(state);
+
+        boolean allDecksEmpty = true;
+        for (Deck deck : state.getDecks().getDecks()) {
+            if (deck.size() > 0) {
+                allDecksEmpty = false;
+                break;
+            }
+        }
+
+        if (allDecksEmpty) {
+            Logger.info("All decks are empty, finishing game");
+            return Optional.of(new FinishPhase(state));
+        }
 
         message = String.format("Player %s's hand is:\n%s\n", player.getName(),
                 state.getPrinter().getPlayerHand(player));
@@ -64,11 +79,6 @@ public class PlayerTurnPhase implements IPhase {
         for (String line : lines) {
             output.send(line);
         }
-        // output.send(
-        // String.format(
-        // "It's your turn!\n\nCriteria: %s\nVeggies: %s\n\nThe piles are:\nPoint cards:
-        // %s\nVeggie cards: %s\n",
-        // "TODO", "TODO", "TODO", "TODO"));
     }
 
 }

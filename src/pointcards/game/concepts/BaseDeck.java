@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import pointcards.utils.Shuffler;
+import pointcards.utils.Randomizer;
 
 public class BaseDeck<C extends BaseCard> {
     private final List<C> cards;
@@ -44,7 +44,7 @@ public class BaseDeck<C extends BaseCard> {
     }
 
     public void shuffle() {
-        Shuffler.shuffle(this.cards);
+        Randomizer.shuffle(this.cards);
     }
 
     public int size() {

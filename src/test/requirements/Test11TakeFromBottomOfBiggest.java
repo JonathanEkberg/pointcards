@@ -21,7 +21,7 @@ import pointcards.game.pointsalad.phases.InitPhase;
 import pointcards.game.pointsalad.phases.PlayerTurnPhase;
 import pointcards.io.input.IInput;
 import pointcards.io.output.IOutput;
-import pointcards.utils.Shuffler;
+import pointcards.utils.Randomizer;
 import test.utils.DummyOutput;
 import test.utils.TestUtils;
 
@@ -86,7 +86,7 @@ public class Test11TakeFromBottomOfBiggest {
     public void test() {
         try {
             // Causes player 2 to be the starting player
-            Shuffler.setSeed(123);
+            Randomizer.setSeed(123);
 
             JSONManifestParser parser = TestUtils.getManifestParser("PSManifestV1.json");
             List<Card> cards = parser.getCards();

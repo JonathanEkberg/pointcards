@@ -3,7 +3,7 @@ package pointcards.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import pointcards.utils.Shuffler;
+import pointcards.utils.Randomizer;
 
 public class BaseGameState {
     private final List<? extends BasePlayer> players;
@@ -13,7 +13,7 @@ public class BaseGameState {
         List<Participant> entities = new ArrayList<Participant>();
         entities.addAll(players);
         entities.addAll(bots);
-        Shuffler.shuffle(entities);
+        Randomizer.shuffle(entities);
 
         this.players = players;
         this.turner = new TurnController(entities);

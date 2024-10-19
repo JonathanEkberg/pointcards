@@ -1,5 +1,6 @@
 package pointcards.game.pointsalad;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,27 +17,26 @@ import pointcards.io.JSONFileReader;
 import pointcards.io.input.IInput;
 import pointcards.settings.GameSettings;
 import pointcards.settings.OptionalGameSettings;
-import pointcards.utils.Shuffler;
+import pointcards.utils.Randomizer;
 
 public class GameFactory implements IGameFactory {
     private final List<Card> cards;
 
-    public GameFactory(String manifestPath) throws Exception {
+    public GameFactory(String manifestPath) throws FileNotFoundException {
+        JSONFileReader reader = new JSONFileReader(manifestPath);
+        JSONObject manifest = reader.readJsonFile();
+        JSONManifestParser manifestParser = new JSONManifestParser(manifest);
         try {
-            JSONFileReader reader = new JSONFileReader(manifestPath);
-            JSONObject manifest = reader.readJsonFile();
-            JSONManifestParser manifestParser = new JSONManifestParser(manifest);
             this.cards = manifestParser.getCards();
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new Exception("Failed to read manifest file");
+            throw new IllegalArgumentException("Invalid manifest provided. " + e.getMessage());
         }
     }
 
     public GameSettings setGameSettings(final OptionalGameSettings settings, final IInput input) {
         Optional<Integer> numberOfPlayers = settings.getNumberOfPlayers();
-        if (numberOfPlayers.isEmpty() || numberOfPlayers.get() < 1 || numberOfPlayers.get() > 6) {
-            int players = input.queryInt("Enter the number of players", 1,
+        if (numberOfPlayers.isEmpty() || numberOfPlayers.get() < 0 || numberOfPlayers.get() > 6) {
+            int players = input.queryInt("Enter the number of players", 0,
                     6);
             settings.setNumberOfPlayers(players);
         }
@@ -47,8 +47,8 @@ public class GameFactory implements IGameFactory {
         }
 
         if (settings.getNumberOfBots().isEmpty() || settings.getNumberOfBots().get() < 0
-                || settings.getNumberOfBots().get() > 5) {
-            var bots = input.queryInt("Enter the number of bots", 0, 5 - settings.getNumberOfPlayers().get());
+                || settings.getNumberOfBots().get() > 6) {
+            var bots = input.queryInt("Enter the number of bots", 0, 6 - settings.getNumberOfPlayers().get());
             settings.setNumberOfBots(bots);
         }
         return new GameSettings(settings);
@@ -96,7 +96,7 @@ public class GameFactory implements IGameFactory {
         }
 
         List<Card> shuffled = new ArrayList<>(cards);
-        Shuffler.shuffle(shuffled);
+        Randomizer.shuffle(shuffled);
         return shuffled;
     }
 

@@ -37,9 +37,11 @@ public class GameServer {
 
     private IGame initGame(IGameFactory factory, GameSettings settings) throws IOException {
         final List<BasePlayer> players = new ArrayList<>(settings.getNumberOfPlayers());
+
         int playerId = 1;
-        // The server player. Always at least one.
-        players.add(new BasePlayer(String.valueOf(playerId++), new LocalConsoleInput(), new LocalConsoleOutput()));
+        if (settings.getNumberOfPlayers() > 0) {
+            players.add(new BasePlayer(String.valueOf(playerId++), new LocalConsoleInput(), new LocalConsoleOutput()));
+        }
 
         // Remote players (if any)
         if (settings.getNumberOfPlayers() > 1) {

@@ -30,4 +30,19 @@ public class Hand {
     public void removeCriteriaCard(Card card) {
         this.criterias.remove(card);
     }
+
+    public int calculateScore(List<List<Card>> opponentsVeggies) {
+        int score = 0;
+
+        for (Card card : criterias) {
+            Card[] veggies = this.veggies.toArray(new Card[0]);
+            Card[][] opponentsVeggiesArray = new Card[opponentsVeggies.size()][];
+            for (int i = 0; i < opponentsVeggies.size(); i++) {
+                opponentsVeggiesArray[i] = opponentsVeggies.get(i).toArray(new Card[0]);
+            }
+            score += card.getCriteria().calculatePoints(veggies, (opponentsVeggiesArray));
+        }
+
+        return score;
+    }
 }

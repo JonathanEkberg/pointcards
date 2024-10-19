@@ -1,21 +1,37 @@
 package pointcards.game.pointsalad;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import pointcards.game.BaseGameState;
+import pointcards.utils.Logger;
 
 public class GameState extends BaseGameState {
     private Decks decks;
     private Market market;
     private GameStatePrinter printer;
 
+    private final List<IPlayer> players;
+
     public GameState(List<HumanPlayer> players, List<Bot> bots, Deck deck) {
         super(players, bots);
         this.decks = new Decks(List.of(deck));
         this.market = new Market();
         this.printer = new GameStatePrinter(this);
+
+        this.players = new ArrayList<>(players.size() + bots.size());
+        for (HumanPlayer player : players) {
+            this.players.add(player);
+        }
+        for (Bot bot : bots) {
+            this.players.add(bot);
+        }
+    }
+
+    public List<IPlayer> getPlayers() {
+        return this.players;
     }
 
     public Decks getDecks() {
@@ -90,6 +106,7 @@ public class GameState extends BaseGameState {
                     continue;
                 }
 
+                Logger.debug("Refilling market spot at " + column + ", " + row);
                 refillMarketSpot(column, row);
             }
         }
@@ -105,7 +122,7 @@ public class GameState extends BaseGameState {
         }
 
         // Refill market spot with card from bottom of the deck with the most cards
-        Map<Integer, Integer> deckSizes = new HashMap<>();
+        int columnWithMostCards = -1;
 
         for (int i = 0; i < decks.size(); i++) {
             // This column is empty, skip it
@@ -113,12 +130,51 @@ public class GameState extends BaseGameState {
                 continue;
             }
 
-            deckSizes.put(i, decks.getDeck(i).size());
+            if (columnWithMostCards == -1) {
+                columnWithMostCards = i;
+                continue;
+            }
+
+            if (decks.getDeck(i).size() > decks.getDeck(columnWithMostCards).size()) {
+                columnWithMostCards = i;
+            }
         }
 
-        int columnWithMostCards = deckSizes.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
+        for (int i = 0; i < decks.size(); i++) {
+            Logger.debug("");
+            Logger.debug("Deck " + i + " has " + decks.getDeck(i).size() + " cards");
+        }
+
         deck = decks.getDeck(columnWithMostCards);
+        assert deck.size() > 0 : "Deck with most cards is empty";
+
         Card card = deck.takeFromBottom().get();
         market.addCard(column, row, card);
+    }
+
+    public boolean allDecksEmpty() {
+        for (Deck deck : decks.getDecks()) {
+            if (deck.size() > 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean marketCompletelyEmpty() {
+        for (int column = 0; column < market.getColumns(); column++) {
+            for (int row = 0; row < market.getRows(); row++) {
+                if (market.hasCard(column, row)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public boolean shouldGameEnd() {
+        return allDecksEmpty() && marketCompletelyEmpty();
     }
 }

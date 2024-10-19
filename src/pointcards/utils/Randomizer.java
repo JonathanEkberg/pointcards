@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class Shuffler {
+public class Randomizer {
     private static final Random random = new Random(123);
 
     public static final <T> List<T> shuffle(List<T> list) {
@@ -14,5 +14,9 @@ public class Shuffler {
 
     public static void setSeed(long seed) {
         random.setSeed(seed);
+    }
+
+    public static int nextInt(int bound) {
+        return random.nextInt(bound);
     }
 }
