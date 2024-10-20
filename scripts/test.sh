@@ -1,26 +1,25 @@
 #!/bin/bash
 javac -d bin -cp "lib/*:src" src/test/requirements/*.java src/test/*.java
 
-# echo "Running tests..."
-# for file in src/test/*.java
-# do
-#     # Convert to only filename withbin the .java extension
-#     NAME=$(basename $file .java)
-#     java -ea -cp "lib/*:bin" org.junit.runner.JUnitCore test.$NAME
-# done
+echo "Running tests..."
+for file in src/test/*.java
+do
+    NAME=$(basename $file .java)
+    java -ea -cp "lib/*:bin" org.junit.runner.JUnitCore test.$NAME
+done
 
-# echo "
+echo "
 
-# Running requirements tests..."
-# for file in src/test/requirements/*.java
-# do
+Running requirements tests..."
+for file in src/test/requirements/*.java
+do
     
-#     # Convert to only filename withbin the .java extension
-#     NAME=$(basename $file .java)
-#     echo "
-# Testing $NAME"
-#     # LOGGER_LEVEL=error java -ea -cp "lib/*:bin" org.junit.runner.JUnitCore test.requirements.$NAME
-#     java -ea -cp "lib/*:bin" org.junit.runner.JUnitCore test.requirements.$NAME
-# done
+    # Convert to only filename withbin the .java extension
+    NAME=$(basename $file .java)
+    echo "
+Testing $NAME"
+    java -ea -cp "lib/*:bin" org.junit.runner.JUnitCore test.requirements.$NAME
 
-java -ea -cp "lib/*:bin" org.junit.runner.JUnitCore test.requirements.Test12To14PlayGame
+    # To run with all logs run the following command instead
+    # LOGGER_LEVEL=debug java -ea -cp "lib/*:bin" org.junit.runner.JUnitCore test.requirements.$NAME
+done
