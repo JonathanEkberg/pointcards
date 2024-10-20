@@ -2,7 +2,6 @@ package pointcards.game.pointsalad;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;

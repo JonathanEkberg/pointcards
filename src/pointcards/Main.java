@@ -1,7 +1,5 @@
 package pointcards;
 
-import java.util.Random;
-
 import pointcards.game.IGameFactory;
 import pointcards.game.pointsalad.GameFactory;
 import pointcards.network.IServerFactory;

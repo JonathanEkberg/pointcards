@@ -1,8 +1,6 @@
 package test.requirements;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -18,9 +16,7 @@ import pointcards.game.pointsalad.HumanPlayer;
 import pointcards.game.pointsalad.Market;
 import pointcards.game.pointsalad.manifest.json.JSONManifestParser;
 import pointcards.game.pointsalad.phases.InitPhase;
-import pointcards.game.pointsalad.phases.PlayerTurnPhase;
 import pointcards.io.input.IInput;
-import pointcards.io.output.IOutput;
 import pointcards.utils.Randomizer;
 import test.utils.DummyOutput;
 import test.utils.TestUtils;
@@ -69,19 +65,6 @@ public class Test11TakeFromBottomOfBiggest {
         }
     }
 
-    private class GetHandOutput implements IOutput {
-        private boolean hasGottenHandMessage = false;
-
-        @Override
-        public void send(String message) {
-            this.hasGottenHandMessage = message.toLowerCase().contains("hand");
-        }
-
-        public boolean hasGottenHandMessage() {
-            return this.hasGottenHandMessage;
-        }
-    }
-
     @Test
     public void test() {
         try {
@@ -95,7 +78,7 @@ public class Test11TakeFromBottomOfBiggest {
 
             HumanPlayer player1 = new HumanPlayer("Player 1", new TakesVeggieCardInput(), new DummyOutput(),
                     new Hand());
-            HumanPlayer player2 = new HumanPlayer("Player 2", new TakesPointCardInput(), new GetHandOutput(),
+            HumanPlayer player2 = new HumanPlayer("Player 2", new TakesPointCardInput(), new DummyOutput(),
                     new Hand());
 
             List<HumanPlayer> players = List

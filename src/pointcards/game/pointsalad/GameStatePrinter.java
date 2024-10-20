@@ -2,8 +2,6 @@ package pointcards.game.pointsalad;
 
 import java.util.List;
 
-import pointcards.utils.Logger;
-
 public class GameStatePrinter {
     private final GameState state;
 

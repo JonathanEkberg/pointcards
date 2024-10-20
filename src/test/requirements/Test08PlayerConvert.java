@@ -2,7 +2,6 @@ package test.requirements;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -19,7 +18,6 @@ import pointcards.game.pointsalad.Veggie;
 import pointcards.game.pointsalad.criteria.criterias.CriteriaPer;
 import pointcards.game.pointsalad.manifest.json.JSONManifestParser;
 import pointcards.io.input.IInput;
-import pointcards.io.output.IOutput;
 import pointcards.io.output.LocalConsoleOutput;
 import pointcards.utils.Logger;
 import test.utils.DummyInput;

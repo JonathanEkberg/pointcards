@@ -2,33 +2,23 @@ package test.requirements;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import org.junit.Test;
 
-import pointcards.game.IPhase;
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Deck;
-import pointcards.game.pointsalad.Decks;
 import pointcards.game.pointsalad.GameState;
-import pointcards.game.pointsalad.GameStatePrinter;
 import pointcards.game.pointsalad.Hand;
 import pointcards.game.pointsalad.HumanPlayer;
-import pointcards.game.pointsalad.Market;
 import pointcards.game.pointsalad.manifest.json.JSONManifestParser;
 import pointcards.game.pointsalad.phases.InitPhase;
 import pointcards.game.pointsalad.phases.PlayerTurnPhase;
 import pointcards.io.input.IInput;
 import pointcards.io.output.IOutput;
-import pointcards.io.output.LocalConsoleOutput;
 import pointcards.utils.Randomizer;
 import test.utils.DummyOutput;
 import test.utils.TestUtils;

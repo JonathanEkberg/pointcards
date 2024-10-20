@@ -1,6 +1,5 @@
 package test.requirements;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -12,10 +11,8 @@ import org.junit.Test;
 
 import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.Deck;
-import pointcards.game.pointsalad.Decks;
 import pointcards.game.pointsalad.GameState;
 import pointcards.game.pointsalad.HumanPlayer;
-import pointcards.game.pointsalad.Market;
 import pointcards.game.pointsalad.manifest.json.JSONManifestParser;
 import pointcards.game.pointsalad.phases.InitPhase;
 import test.utils.TestUtils;
