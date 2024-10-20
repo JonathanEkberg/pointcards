@@ -21,10 +21,23 @@ import pointcards.settings.GameSettings;
 import pointcards.settings.OptionalGameSettings;
 import pointcards.utils.Logger;
 
+/**
+ * The GameServer class is responsible for initializing and running a game
+ * server.
+ * It sets up the game and network server, and manages the players and bots.
+ */
 public class GameServer {
     private final IGame game;
     private final INetworkServer server;
 
+    /**
+     * Constructs a new GameServer instance.
+     *
+     * @param factory       the factory to create game-related objects
+     * @param serverFactory the factory to create server-related objects
+     * @param settings      the optional game settings
+     * @throws IOException if an I/O error occurs during server startup
+     */
     public GameServer(IGameFactory factory, IServerFactory serverFactory, OptionalGameSettings settings)
             throws IOException {
         Logger.info("Game server started on port " + settings.getPort());
@@ -69,8 +82,10 @@ public class GameServer {
         return factory.createGame(players, bots);
     }
 
+    /**
+     * Executes the game logic by invoking the run method of the game instance.
+     */
     public void run() {
         this.game.run();
-        // server.stop();
     }
 }

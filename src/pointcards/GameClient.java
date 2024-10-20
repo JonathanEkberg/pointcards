@@ -10,7 +10,51 @@ import java.util.Scanner;
 import pointcards.utils.Logger;
 
 /**
- * Source https://chatgpt.com/share/670d056f-be94-8009-8c2d-f0837458c564
+ * The GameClient class represents a client that connects to a game server.
+ * It handles sending and receiving messages to and from the server.
+ * 
+ * <p>
+ * Usage example:
+ * 
+ * <pre>
+ * {@code
+ * GameClient client = new GameClient("localhost", 12345);
+ * }
+ * </pre>
+ * 
+ * <p>
+ * This class starts a thread to read messages from the server and uses the main
+ * thread to handle user input.
+ * 
+ * <p>
+ * Fields:
+ * <ul>
+ * <li>{@code in} - An ObjectInputStream to read messages from the server.</li>
+ * <li>{@code out} - An ObjectOutputStream to send messages to the server.</li>
+ * <li>{@code running} - A volatile boolean flag to control the running state of
+ * the client.</li>
+ * </ul>
+ * 
+ * <p>
+ * Constructor:
+ * <ul>
+ * <li>{@code GameClient(String hostname, int port)} - Connects to the server at
+ * the specified hostname and port, and starts the client.</li>
+ * </ul>
+ * 
+ * <p>
+ * Methods:
+ * <ul>
+ * <li>{@code private void readFromServer()} - Reads messages from the server in
+ * a loop until the "end" message is received or an exception occurs.</li>
+ * <li>{@code private void sendToServer(String message)} - Sends a non-null and
+ * non-empty message to the server.</li>
+ * </ul>
+ * 
+ * @param hostname The hostname of the server to connect to.
+ * @param port     The port number of the server to connect to.
+ * @throws IOException If an I/O error occurs when creating the socket or
+ *                     streams.
  */
 public class GameClient {
     private final ObjectInputStream in;

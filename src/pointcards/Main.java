@@ -27,6 +27,14 @@ public class Main {
         }
     }
 
+    /**
+     * Runs the game server with the provided game settings, game factory, and
+     * server factory.
+     *
+     * @param optionalGameSettings Optional settings for the game.
+     * @param gameFactory          Factory to create game instances.
+     * @param serverFactory        Factory to create server instances.
+     */
     private static void runGameServer(OptionalGameSettings optionalGameSettings,
             IGameFactory gameFactory, IServerFactory serverFactory) {
         try {
@@ -36,6 +44,12 @@ public class Main {
         }
     }
 
+    /**
+     * Initializes and runs the GameClient with the specified program settings.
+     *
+     * @param programSettings the settings containing the hostname and port for the
+     *                        GameClient
+     */
     private static void runGameClient(ProgramSettings programSettings) {
         try {
             new GameClient(programSettings.getHostname(), programSettings.getPort());

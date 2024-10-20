@@ -2,7 +2,30 @@ package pointcards.utils;
 
 import pointcards.settings.OptionalGameSettings;
 
+/**
+ * The Args class provides a method to parse command-line arguments for
+ * configuring game settings.
+ * It supports both server and client configurations.
+ */
 public class Args {
+    /**
+     * Parses command-line arguments to configure game settings.
+     *
+     * @param args the command-line arguments
+     *             --type [server|client] : Specifies whether the application is
+     *             running as a server or client. Default is server.
+     *             --hostname <hostname> : Specifies the hostname. Default is
+     *             "localhost".
+     *             --port <port> : Specifies the port number. Default is 3000.
+     *             --manifest-path <path> : Specifies the path to the manifest file.
+     *             Required when running as a server.
+     *             --players <number> : Specifies the number of players. Only
+     *             applicable when running as a server.
+     *             --bots <number> : Specifies the number of bots. Only applicable
+     *             when running as a server.
+     *
+     * @return an OptionalGameSettings object containing the parsed settings
+     */
     public static OptionalGameSettings parseArgs(String[] args) {
         boolean isServer = true;
         String hostname = "localhost";
