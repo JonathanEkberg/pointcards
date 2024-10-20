@@ -22,8 +22,8 @@ public class GameFactory implements IGameFactory {
     private final List<Card> cards;
 
     public GameFactory(String manifestPath) throws FileNotFoundException {
-        JSONFileReader reader = new JSONFileReader(manifestPath);
-        JSONObject manifest = reader.readJsonFile();
+        JSONFileReader reader = new JSONFileReader();
+        JSONObject manifest = reader.readJSONFile(manifestPath);
         JSONManifestParser manifestParser = new JSONManifestParser(manifest);
         try {
             this.cards = manifestParser.getCards();

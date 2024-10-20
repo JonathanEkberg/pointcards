@@ -17,8 +17,8 @@ import pointcards.io.JSONFileReader;
 
 public class TestUtils {
     public static JSONManifestParser getManifestParser(String manifestPath) throws Exception {
-        JSONFileReader reader = new JSONFileReader(manifestPath);
-        JSONObject manifest = reader.readJsonFile();
+        JSONFileReader reader = new JSONFileReader();
+        JSONObject manifest = reader.readJSONFile(manifestPath);
         return new JSONManifestParser(manifest);
     }
 

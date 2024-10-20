@@ -6,28 +6,22 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Scanner;
 
+/**
+ * The JSONFileReader class provides methods for reading JSON files.
+ */
 public class JSONFileReader {
-    private final String filePath;
-
-    public JSONFileReader(String filePath) {
-        this.filePath = filePath;
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public JSONObject readJsonFile() throws FileNotFoundException {
-        InputStream fileStream = new FileInputStream(this.filePath);
-        Scanner scanner = new Scanner(fileStream, "UTF-8").useDelimiter("\\A");
-
-        // Read the entire JSON file into a String
-        String jsonString = scanner.hasNext() ? scanner.next() : "";
-
-        // Parse the JSON string into a JSONObject
-        JSONObject jsonObject = new JSONObject(jsonString);
+    /**
+     * Reads a JSON file and returns its content as a JSONObject.
+     * 
+     * @param filePath The path to the JSON file.
+     * @return The content of the JSON file as a JSONObject.
+     * @throws FileNotFoundException If the file is not found.
+     */
+    public JSONObject readJSONFile(String filePath) throws FileNotFoundException {
+        InputStream is = new FileInputStream(filePath);
+        Scanner scanner = new Scanner(is).useDelimiter("\\A");
+        String jsonText = scanner.hasNext() ? scanner.next() : "";
         scanner.close();
-
-        return jsonObject;
+        return new JSONObject(jsonText);
     }
 }
