@@ -43,6 +43,7 @@ public class HumanPlayer extends BasePlayer implements IPlayer {
             }
 
             handleTakePointCard(state, parsed);
+            checkCriteriaCardConversion(state);
             return;
         } catch (NumberFormatException e) {
         }
@@ -65,13 +66,16 @@ public class HumanPlayer extends BasePlayer implements IPlayer {
 
         Logger.debug("User input: " + sb.toString());
         handleTakeMarketCards(state, chars);
+        checkCriteriaCardConversion(state);
     }
 
     private void handleTakePointCard(GameState state, int deckIdx) {
         state.getDecks().getDeck(deckIdx).takeCard().ifPresent(card -> {
             hand.addCriteriasCard(card);
         });
+    }
 
+    private void checkCriteriaCardConversion(GameState state) {
         // If has zero critiera cards then they cannot convert to veggie
         if (hand.getCriteriaCards().size() == 0) {
             return;
