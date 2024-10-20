@@ -19,10 +19,10 @@ public class Logger {
             try {
                 logLevel = LogLevel.valueOf(logLevelEnv.toUpperCase());
             } catch (IllegalArgumentException e) {
-                logLevel = LogLevel.DEBUG; // Default level
+                logLevel = LogLevel.ERROR; // Default level
             }
         } else {
-            logLevel = LogLevel.DEBUG; // Default level
+            logLevel = LogLevel.ERROR; // Default level
         }
     }
 
