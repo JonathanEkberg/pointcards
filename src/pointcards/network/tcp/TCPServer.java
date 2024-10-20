@@ -12,10 +12,21 @@ import pointcards.network.INetworkClient;
 import pointcards.network.INetworkServer;
 import pointcards.utils.Logger;
 
+/**
+ * The `TCPServer` class implements the `INetworkServer` interface using TCP for
+ * communication.
+ * It provides methods for starting the server, connecting clients, and stopping
+ * the server.
+ */
 public class TCPServer implements INetworkServer {
     private ServerSocket socket;
     private List<INetworkClient> clients;
 
+    /**
+     * Starts the server on the specified port.
+     * 
+     * @param port The port number to start the server on.
+     */
     @Override
     public void start(int port) {
         try {
@@ -26,6 +37,12 @@ public class TCPServer implements INetworkServer {
         }
     }
 
+    /**
+     * Connects the specified number of clients to the server.
+     * 
+     * @param numberOfClients The number of clients to connect.
+     * @return A list of connected clients.
+     */
     @Override
     public List<INetworkClient> connectClients(int numberOfClients) {
         try {
@@ -49,9 +66,11 @@ public class TCPServer implements INetworkServer {
             e.printStackTrace();
             return null;
         }
-
     }
 
+    /**
+     * Stops the server and closes all client connections.
+     */
     @Override
     public void stop() {
         try {
@@ -60,7 +79,7 @@ public class TCPServer implements INetworkServer {
             }
             this.socket.close();
         } catch (IOException e) {
-
+            // TODO: Update error handling
         }
     }
 }
