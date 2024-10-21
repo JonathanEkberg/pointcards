@@ -25,6 +25,12 @@ import pointcards.game.pointsalad.criteria.criterias.CriteriaPerMissingType;
 import pointcards.game.pointsalad.criteria.criterias.CriteriaSet;
 import pointcards.game.pointsalad.manifest.json.IJSONCardParser;
 
+/**
+ * The {@code JSONCardParser} class is responsible for parsing JSON objects into
+ * {@code Card} objects.
+ * It handles the extraction and conversion of criteria from the JSON
+ * representation.
+ */
 public class JSONCardParser implements IJSONCardParser {
     private static final int EXPECTED_CARD_AMOUNT = 108;
     private final JSONObject cards;
@@ -68,6 +74,13 @@ public class JSONCardParser implements IJSONCardParser {
         }
     }
 
+    /**
+     * Parses a JSON object representing a card and returns a {@code Card} object.
+     *
+     * @param veggie the veggie associated with the card
+     * @param card   the JSON object representing the card
+     * @return the parsed {@code Card} object
+     */
     private Card parseCard(Veggie veggie, JSONObject card) {
         if (!card.has("criterias")) {
             System.out.println(card);
@@ -96,18 +109,38 @@ public class JSONCardParser implements IJSONCardParser {
         return new Card(veggie, criteria);
     }
 
+    /**
+     * Extracts the points value from a criteria JSON object.
+     *
+     * @param criteria the JSON object representing the criteria
+     * @return the points value of the criteria
+     */
     private int getCriteriaPoints(JSONObject criteria) {
         assert criteria.has("points") : "Criteria is missing points field";
 
         return criteria.getNumber("points").intValue();
     }
 
+    /**
+     * Extracts the veggie value from a criteria JSON object.
+     *
+     * @param criteria the JSON object representing the criteria
+     * @return the veggie value of the criteria
+     */
     private Veggie getCriteriaVeggie(JSONObject criteria) {
         assert criteria.has("veggie") : "Criteria is missing veggie field";
 
         return Veggie.valueOf(criteria.getString("veggie"));
     }
 
+    /**
+     * Parses a JSON object representing a criteria and returns an {@code ICriteria}
+     * object.
+     *
+     * @param criteria the JSON object representing the criteria
+     * @return the parsed {@code ICriteria} object, or {@code null} if the criteria
+     *         type is not specified
+     */
     private ICriteria parseCriteria(JSONObject criteria) {
         if (!criteria.has("type")) {
             return null;

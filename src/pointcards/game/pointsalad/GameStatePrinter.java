@@ -2,13 +2,28 @@ package pointcards.game.pointsalad;
 
 import java.util.List;
 
+/**
+ * The GameStatePrinter class provides methods to generate string
+ * representations
+ * of the point cards and veggie cards available in the game.
+ */
 public class GameStatePrinter {
     private final GameState state;
 
+    /**
+     * Constructs a GameStatePrinter with the specified game state.
+     *
+     * @param state the current game state
+     */
     public GameStatePrinter(GameState state) {
         this.state = state;
     }
 
+    /**
+     * Generates a string representation of the available point cards.
+     *
+     * @return a string representing the available point cards
+     */
     public String getPointCardChoics() {
         StringBuilder sb = new StringBuilder();
         sb.append("Point Cards:\t");
@@ -33,6 +48,11 @@ public class GameStatePrinter {
         return sb.toString();
     }
 
+    /**
+     * Generates a string representation of the available veggie cards.
+     *
+     * @return a string representing the available veggie cards
+     */
     public String getVeggieCardChoics() {
         StringBuilder sb = new StringBuilder();
         sb.append("Veggie Cards:\t");
@@ -65,49 +85,30 @@ public class GameStatePrinter {
             }
         }
 
-        // for (int i = 0; i < 6; i++) {
-        // int columnIndex = i % 3;
-        // int rowIndex = i % 2;
-        // boolean shouldLineBreak = rowIndex > 1 && columnIndex == 2;
-
-        // if (!market.hasCard(columnIndex, rowIndex)) {
-        // sb.append('\t');
-        // sb.append(shouldLineBreak ? '\n' : '\t');
-        // continue;
-        // }
-
-        // String veggie = market.getCard(columnIndex, rowIndex).getVeggie().toString();
-
-        // // New line and start with two tags if is first column and not first row
-        // if (rowIndex > 0 && columnIndex == 0) {
-        // sb.append("\n\t\t");
-        // }
-
-        // char columnChar = (char) ('A' + i);
-        // sb.append(String.format("[%c]: %s%s", columnChar, veggie, shouldLineBreak ?
-        // '\n' : '\t'));
-        // }
-
         return sb.toString();
     }
 
+    /**
+     * Generates a string representation of the player's hand, including both
+     * criteria and veggie cards.
+     *
+     * @param player the player whose hand is to be represented
+     * @return a string representing the player's hand
+     */
     public String getPlayerHand(IPlayer player) {
         StringBuilder sb = new StringBuilder();
         sb.append(getPlayerCriteriaCards(player));
         sb.append("\n");
         sb.append(getPlayerVeggieCards(player));
         return sb.toString();
-        // sb.append("Criteria:\t");
-        // Hand hand = player.getHand();
-
-        // for (Card card : hand.getCriteriaCards()) {
-        // sb.append(card.getCriteria().toString());
-        // sb.append(", ");
-        // }
-
-        // return sb.toString();
     }
 
+    /**
+     * Generates a string representation of the player's criteria cards.
+     *
+     * @param player the player whose criteria cards are to be represented
+     * @return a string representing the player's criteria cards
+     */
     public String getPlayerCriteriaCards(IPlayer player) {
         StringBuilder sb = new StringBuilder();
         sb.append("Criteria:\t");
@@ -125,6 +126,13 @@ public class GameStatePrinter {
         return sb.toString();
     }
 
+    /**
+     * Retrieves a string representation of the vegetable cards in a player's hand.
+     *
+     * @param player the player whose vegetable cards are to be retrieved
+     * @return a string listing the vegetable cards in the player's hand, separated
+     *         by commas
+     */
     public String getPlayerVeggieCards(IPlayer player) {
         StringBuilder sb = new StringBuilder();
         sb.append("Veggies:\t");
@@ -132,7 +140,6 @@ public class GameStatePrinter {
 
         List<Card> cards = hand.getVeggieCards();
 
-        // for (Card card : cards) {
         for (int i = 0; i < cards.size(); i++) {
             Card card = cards.get(i);
             sb.append(card.getVeggie().toString());

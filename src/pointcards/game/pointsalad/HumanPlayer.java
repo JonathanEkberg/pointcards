@@ -18,10 +18,6 @@ public class HumanPlayer extends BasePlayer implements IPlayer {
         this.hand = hand;
     }
 
-    // public String getName() {
-    // return String.valueOf(this.getName());
-    // }
-
     public Hand getHand() {
         return hand;
     }

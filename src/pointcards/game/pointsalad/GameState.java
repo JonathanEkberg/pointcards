@@ -5,6 +5,36 @@ import java.util.List;
 import pointcards.game.BaseGameState;
 import pointcards.utils.Logger;
 
+/**
+ * The {@code GameState} class represents the current state of the Point Salad
+ * game.
+ * It manages the decks, market, and other game components, providing methods to
+ * manipulate and query the game state.
+ * 
+ * <p>
+ * This class includes methods for:
+ * <ul>
+ * <li>Getting and setting the decks and market</li>
+ * <li>Refilling the market cards</li>
+ * <li>Printing the game state</li>
+ * </ul>
+ * </p>
+ * 
+ * <p>
+ * Example usage:
+ * </p>
+ * 
+ * <pre>
+ * {@code
+ * GameState state = new GameState(decks, market);
+ * state.refillMarketCards();
+ * }
+ * </pre>
+ * 
+ * @see pointcards.game.pointsalad.Decks
+ * @see pointcards.game.pointsalad.Market
+ * @see pointcards.game.pointsalad.GameStatePrinter
+ */
 public class GameState extends BaseGameState {
     private Decks decks;
     private Market market;
@@ -31,22 +61,47 @@ public class GameState extends BaseGameState {
         return this.players;
     }
 
+    /**
+     * Gets the decks in the game state.
+     * 
+     * @return The decks.
+     */
     public Decks getDecks() {
         return this.decks;
     }
 
+    /**
+     * Gets the market in the game state.
+     * 
+     * @return The market.
+     */
     public Market getMarket() {
         return this.market;
     }
 
+    /**
+     * Gets the game state printer.
+     * 
+     * @return The game state printer.
+     */
     public GameStatePrinter getPrinter() {
         return this.printer;
     }
 
+    /**
+     * Sets the decks in the game state.
+     * 
+     * @param decks The decks to set.
+     */
     public void setDecks(Decks decks) {
         this.decks = decks;
     }
 
+    /**
+     * Refills the market cards if there are empty slots.
+     * If there are decks with zero cards, it refills with empty cards.
+     * Otherwise, it refills with non-empty cards.
+     */
     public void refillMarketCards() {
         boolean hasEmptyMarketSlot = false;
         for (int column = 0; column < market.getColumns(); column++) {
@@ -79,6 +134,9 @@ public class GameState extends BaseGameState {
         }
     }
 
+    /**
+     * Refills the market with non-empty cards from the decks.
+     */
     private void refillWithNonEmpty() {
         for (int i = 0; i < 6; i++) {
             int columnIndex = i % 3;
@@ -94,6 +152,9 @@ public class GameState extends BaseGameState {
         }
     }
 
+    /**
+     * Refills the market with empty cards.
+     */
     private void refillWithEmpty() {
         Market market = getMarket();
 
@@ -149,16 +210,25 @@ public class GameState extends BaseGameState {
         market.addCard(column, row, card);
     }
 
+    /**
+     * Checks if all decks are empty.
+     *
+     * @return true if all decks are empty, false otherwise.
+     */
     public boolean allDecksEmpty() {
         for (Deck deck : decks.getDecks()) {
             if (deck.size() > 0) {
                 return false;
             }
         }
-
         return true;
     }
 
+    /**
+     * Checks if the market is completely empty.
+     *
+     * @return true if the market is completely empty, false otherwise.
+     */
     public boolean marketCompletelyEmpty() {
         for (int column = 0; column < market.getColumns(); column++) {
             for (int row = 0; row < market.getRows(); row++) {
@@ -167,10 +237,15 @@ public class GameState extends BaseGameState {
                 }
             }
         }
-
         return true;
     }
 
+    /**
+     * Determines if the game should end.
+     *
+     * @return true if all decks are empty and the market is completely empty, false
+     *         otherwise.
+     */
     public boolean shouldGameEnd() {
         return allDecksEmpty() && marketCompletelyEmpty();
     }

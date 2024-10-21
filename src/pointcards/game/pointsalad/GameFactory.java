@@ -18,9 +18,21 @@ import pointcards.settings.GameSettings;
 import pointcards.settings.OptionalGameSettings;
 import pointcards.utils.Randomizer;
 
+/**
+ * The {@code GameFactory} class is responsible for creating instances of the
+ * Point Salad game. It reads the game manifest, sets up game settings, and
+ * creates game instances with the specified players and bots.
+ */
 public class GameFactory implements IGameFactory {
     private final List<Card> cards;
 
+    /**
+     * Constructs a new {@code GameFactory} with the specified manifest path.
+     * 
+     * @param manifestPath The path to the game manifest file.
+     * @throws FileNotFoundException    If the manifest file is not found.
+     * @throws IllegalArgumentException If the manifest is invalid.
+     */
     public GameFactory(String manifestPath) throws FileNotFoundException {
         JSONFileReader reader = new JSONFileReader();
         JSONObject manifest = reader.readJSONFile(manifestPath);
@@ -32,11 +44,17 @@ public class GameFactory implements IGameFactory {
         }
     }
 
+    /**
+     * Sets the game settings based on the provided optional settings and input.
+     * 
+     * @param settings The optional game settings.
+     * @param input    The input handler for querying user input.
+     * @return The configured game settings.
+     */
     public GameSettings setGameSettings(final OptionalGameSettings settings, final IInput input) {
         Optional<Integer> numberOfPlayers = settings.getNumberOfPlayers();
         if (numberOfPlayers.isEmpty() || numberOfPlayers.get() < 0 || numberOfPlayers.get() > 6) {
-            int players = input.queryInt("Enter the number of players", 0,
-                    6);
+            int players = input.queryInt("Enter the number of players", 0, 6);
             settings.setNumberOfPlayers(players);
         }
 
@@ -53,10 +71,23 @@ public class GameFactory implements IGameFactory {
         return new GameSettings(settings);
     }
 
+    /**
+     * Creates a new instance of the Point Salad game with the specified players.
+     * 
+     * @param players The list of players participating in the game.
+     * @return A new instance of the Point Salad game.
+     */
     public PointSaladGame createGame(final List<BasePlayer> players) {
         return this.createGame(players, List.of());
     }
 
+    /**
+     * Maps the number of participants to the corresponding number of cards from
+     * each veggie type.
+     * 
+     * @param participantCount The number of participants in the game.
+     * @return The list of cards for the specified number of participants.
+     */
     protected List<Card> participantCountToCards(int participantCount) {
         int cardFromEachVeggie = -1;
 
