@@ -11,9 +11,20 @@ import pointcards.game.pointsalad.HumanPlayer;
 import pointcards.io.output.IOutput;
 import pointcards.utils.Logger;
 
+/**
+ * The PlayerTurnPhase class represents the phase where a human player takes
+ * their turn.
+ * It handles the player's actions, updates the game state, and transitions to
+ * the next phase.
+ */
 public class PlayerTurnPhase implements IPhase {
     private final GameState state;
 
+    /**
+     * Constructs a PlayerTurnPhase with the specified game state.
+     * 
+     * @param state The game state for the player's turn.
+     */
     public PlayerTurnPhase(GameState state) {
         this.state = state;
     }
@@ -22,6 +33,13 @@ public class PlayerTurnPhase implements IPhase {
         return this.state;
     }
 
+    /**
+     * Runs the player's turn phase, handling their actions and updating the game
+     * state.
+     * 
+     * @return The next phase to transition to, which could be a BotTurnPhase or
+     *         another PlayerTurnPhase.
+     */
     @Override
     public Optional<IPhase> run() {
         HumanPlayer player = (HumanPlayer) state.turner.getTurn();
@@ -59,6 +77,11 @@ public class PlayerTurnPhase implements IPhase {
         return Optional.of(new BotTurnPhase(state));
     }
 
+    /**
+     * Prints the game state for the player's turn.
+     * 
+     * @param player The player whose turn it is.
+     */
     private void printTurnGameState(HumanPlayer player) {
         IOutput output = player.getOutput();
         GameStatePrinter printer = state.getPrinter();
@@ -67,8 +90,6 @@ public class PlayerTurnPhase implements IPhase {
                 "It's your turn!",
                 "",
                 printer.getPlayerHand(player),
-                // printer.getPlayerCriteriaCards(player),
-                // "Veggies: TODO",
                 "",
                 "The piles are:",
                 printer.getPointCardChoics(),

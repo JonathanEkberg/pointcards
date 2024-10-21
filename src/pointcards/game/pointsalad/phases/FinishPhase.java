@@ -13,13 +13,28 @@ import pointcards.game.pointsalad.IPlayer;
 import pointcards.utils.Logger;
 import pointcards.game.IPhase;
 
+/**
+ * The FinishPhase class represents the final phase of the game.
+ * It calculates the scores for all players, determines the winner, and ends the
+ * game.
+ */
 public class FinishPhase implements IPhase {
     private final GameState state;
 
+    /**
+     * Constructs a FinishPhase with the specified game state.
+     * 
+     * @param state The game state for the final phase.
+     */
     public FinishPhase(GameState state) {
         this.state = state;
     }
 
+    /**
+     * Runs the final phase, calculating scores and determining the winner.
+     * 
+     * @return An empty Optional, indicating the end of the game.
+     */
     @Override
     public Optional<IPhase> run() {
         List<IPlayer> players = state.getPlayers();

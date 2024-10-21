@@ -9,13 +9,31 @@ import pointcards.utils.Logger;
 import pointcards.game.IPhase;
 import pointcards.game.Participant;
 
+/**
+ * The BotTurnPhase class represents the phase where a bot player takes their
+ * turn.
+ * It handles the bot's actions, updates the game state, and transitions to the
+ * next phase.
+ */
 public class BotTurnPhase implements IPhase {
     private final GameState state;
 
+    /**
+     * Constructs a BotTurnPhase with the specified game state.
+     * 
+     * @param state The game state for the bot's turn.
+     */
     public BotTurnPhase(GameState state) {
         this.state = state;
     }
 
+    /**
+     * Runs the bot's turn phase, handling their actions and updating the game
+     * state.
+     * 
+     * @return The next phase to transition to, which could be a PlayerTurnPhase or
+     *         another BotTurnPhase.
+     */
     @Override
     public Optional<IPhase> run() {
         Bot bot = (Bot) state.turner.getTurn();

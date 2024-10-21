@@ -13,13 +13,21 @@ import pointcards.game.pointsalad.HumanPlayer;
 import pointcards.game.pointsalad.Market;
 import pointcards.utils.Logger;
 
+/**
+ * The InitPhase class represents the initial phase of the game.
+ * It is responsible for setting up the game state, splitting the deck into
+ * multiple decks,
+ * and preparing the market with initial cards.
+ */
 public class InitPhase implements IPhase {
     private final GameState state;
 
+    /**
+     * Constructs an InitPhase with the specified game state.
+     * 
+     * @param state The game state to initialize.
+     */
     public InitPhase(GameState state) {
-        // Okay assertion for now but should probably be changed later to merge all
-        // decks into one
-        assert state.getDecks().size() == 1 : "Deck size is not 1";
         this.state = state;
     }
 
@@ -27,6 +35,13 @@ public class InitPhase implements IPhase {
         return this.state;
     }
 
+    /**
+     * Runs the initialization phase, setting up the game state and preparing the
+     * market.
+     * 
+     * @return The next phase to transition to, which could be a PlayerTurnPhase or
+     *         BotTurnPhase.
+     */
     @Override
     public Optional<IPhase> run() {
         state.sendMessageToAllPlayers("Welcome to Point Salad!");
@@ -63,7 +78,10 @@ public class InitPhase implements IPhase {
     }
 
     /**
-     * Convert a single deck into three decks ready for play.
+     * Splits a single deck into three decks ready for play.
+     * 
+     * @param singleDeck The single deck to split.
+     * @return The split decks.
      */
     public static Decks splitDeck(Decks singleDeck) {
         Deck deck = singleDeck.getDeck(0);
