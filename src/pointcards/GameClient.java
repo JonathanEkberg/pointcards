@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 import pointcards.utils.Logger;
@@ -61,7 +62,7 @@ public class GameClient {
     private final ObjectOutputStream out;
     private volatile boolean running = true;
 
-    public GameClient(String hostname, int port) throws IOException {
+    public GameClient(String hostname, int port) throws UnknownHostException, IOException {
         Logger.info("Connecting to " + hostname + " on port " + port);
         Socket socket = new Socket(hostname, port);
         Logger.info("Connected");

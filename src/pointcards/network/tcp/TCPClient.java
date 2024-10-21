@@ -39,7 +39,6 @@ public class TCPClient implements INetworkClient {
         try {
             this.out.writeObject(message);
         } catch (IOException e) {
-            // TODO Update error handling
         }
     }
 
@@ -53,7 +52,6 @@ public class TCPClient implements INetworkClient {
         try {
             return (String) this.in.readObject();
         } catch (Exception e) {
-            // TODO Update error handling
             return null;
         }
     }
@@ -67,7 +65,6 @@ public class TCPClient implements INetworkClient {
             this.in.close();
             this.out.close();
         } catch (IOException e) {
-            // TODO Update error handling
         }
     }
 }

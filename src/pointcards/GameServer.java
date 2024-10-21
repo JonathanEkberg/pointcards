@@ -36,19 +36,19 @@ public class GameServer {
      * @param factory       the factory to create game-related objects
      * @param serverFactory the factory to create server-related objects
      * @param settings      the optional game settings
-     * @throws IOException if an I/O error occurs during server startup
+     * @throws IOException wif an I/O error occurs during server start
      */
     public GameServer(IGameFactory factory, IServerFactory serverFactory, OptionalGameSettings settings)
             throws IOException {
-        Logger.info("Game server started on port " + settings.getPort());
         IInput input = new LocalConsoleInput();
         this.server = serverFactory.createServer();
         this.server.start(settings.getPort());
+        Logger.info("Game server started on port " + settings.getPort());
         GameSettings gameSettings = factory.setGameSettings(settings, input);
         this.game = initGame(factory, gameSettings);
     }
 
-    private IGame initGame(IGameFactory factory, GameSettings settings) throws IOException {
+    private IGame initGame(IGameFactory factory, GameSettings settings) {
         final List<BasePlayer> players = new ArrayList<>(settings.getNumberOfPlayers());
 
         int playerId = 1;

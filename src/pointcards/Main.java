@@ -1,5 +1,8 @@
 package pointcards;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
 import pointcards.game.IGameFactory;
 import pointcards.game.pointsalad.GameFactory;
 import pointcards.network.IServerFactory;
@@ -39,8 +42,9 @@ public class Main {
             IGameFactory gameFactory, IServerFactory serverFactory) {
         try {
             new GameServer(gameFactory, serverFactory, optionalGameSettings).run();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("Failed to start the game server on " + optionalGameSettings.getHostname() + ":"
+                    + optionalGameSettings.getPort() + ". Error: " + e.getMessage());
         }
     }
 
@@ -53,8 +57,11 @@ public class Main {
     private static void runGameClient(ProgramSettings programSettings) {
         try {
             new GameClient(programSettings.getHostname(), programSettings.getPort());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (UnknownHostException e) {
+            System.err.println("Unknown host: " + programSettings.getHostname());
+        } catch (IOException e) {
+            System.err.println("Failed to connect to the server at " + programSettings.getHostname()
+                    + ":" + programSettings.getPort() + ". " + e.getMessage());
         }
     }
 }

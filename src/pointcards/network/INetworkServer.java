@@ -1,5 +1,6 @@
 package pointcards.network;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ public interface INetworkServer {
      * 
      * @param port The port number to start the server on.
      */
-    public void start(int port);
+    public void start(int port) throws IOException;
 
     /**
      * Connects the specified number of clients to the server.

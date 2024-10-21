@@ -26,15 +26,11 @@ public class TCPServer implements INetworkServer {
      * Starts the server on the specified port.
      * 
      * @param port The port number to start the server on.
+     * @throws IOException If an I/O error occurs during initialization.
      */
     @Override
-    public void start(int port) {
-        try {
-            this.socket = new ServerSocket(port);
-        } catch (IOException e) {
-            // TODO: Update error handling
-            e.printStackTrace();
-        }
+    public void start(int port) throws IOException {
+        this.socket = new ServerSocket(port);
     }
 
     /**
