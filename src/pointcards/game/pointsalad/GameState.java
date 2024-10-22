@@ -177,6 +177,11 @@ public class GameState extends BaseGameState {
 
                 Logger.debug("Refilling market spot at " + column + ", " + row);
                 refillMarketSpot(column, row);
+
+                // Can't fill anymore
+                if (allDecksEmpty()) {
+                    return;
+                }
             }
         }
     }
@@ -210,12 +215,10 @@ public class GameState extends BaseGameState {
         }
 
         for (int i = 0; i < decks.size(); i++) {
-            Logger.debug("");
             Logger.debug("Deck " + i + " has " + decks.getDeck(i).size() + " cards");
         }
 
         deck = decks.getDeck(columnWithMostCards);
-        // assert deck.size() > 0 : "Deck with most cards is empty";
 
         Card card = deck.takeFromBottom().get();
         market.addCard(column, row, card);
