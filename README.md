@@ -65,6 +65,12 @@ You can optionally add or edit these arguments in the server and client scripts 
 * --bots - The number of bots the game should have
 > If provided then 2 <= players + bots <= 6 when running Point Salad game mode
 
+### Logging level
+
+The level of logs to have in the console can be set with the LOGGER_LEVEL environment variable.
+The log levels are 'debug', 'info', 'warn' and 'error'.
+If debug is selected debug and levels above will be logged and if 'info' it and all above will log etc.
+
 ### Testing
 Run all unit tests with:
 ```sh
