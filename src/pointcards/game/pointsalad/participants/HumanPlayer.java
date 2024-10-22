@@ -171,6 +171,7 @@ public class HumanPlayer extends BasePlayer implements IPlayer {
     private void handleTakeMarketCards(GameState state, char[] choices) throws IllegalArgumentException {
         Market market = state.getMarket();
 
+        // Check that all choices are valid
         for (char choice : choices) {
             int[] coords = charToMarketPosition(choice);
 
@@ -180,6 +181,13 @@ public class HumanPlayer extends BasePlayer implements IPlayer {
             if (!market.hasCard(columnIdx, rowIdx)) {
                 throw new IllegalArgumentException("No card at position " + choice);
             }
+        }
+
+        for (char choice : choices) {
+            int[] coords = charToMarketPosition(choice);
+
+            int columnIdx = coords[0];
+            int rowIdx = coords[1];
 
             Logger.debug("Taking card at " + columnIdx + ", " + rowIdx);
             Card card = market.takeCard(columnIdx, rowIdx);
