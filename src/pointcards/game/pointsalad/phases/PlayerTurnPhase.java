@@ -3,11 +3,11 @@ package pointcards.game.pointsalad.phases;
 import java.util.Optional;
 
 import pointcards.game.Participant;
-import pointcards.game.pointsalad.Deck;
 import pointcards.game.pointsalad.GameState;
 import pointcards.game.pointsalad.GameStatePrinter;
 import pointcards.game.IPhase;
-import pointcards.game.pointsalad.HumanPlayer;
+import pointcards.game.pointsalad.concepts.Deck;
+import pointcards.game.pointsalad.participants.HumanPlayer;
 import pointcards.io.output.IOutput;
 import pointcards.utils.Logger;
 

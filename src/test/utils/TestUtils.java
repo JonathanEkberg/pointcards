@@ -6,13 +6,13 @@ import java.util.List;
 import org.json.JSONObject;
 
 import pointcards.game.BasePlayer;
-import pointcards.game.pointsalad.Card;
-import pointcards.game.pointsalad.Hand;
-import pointcards.game.pointsalad.HumanPlayer;
-import pointcards.game.pointsalad.Veggie;
+import pointcards.game.pointsalad.concepts.Card;
+import pointcards.game.pointsalad.concepts.Hand;
+import pointcards.game.pointsalad.concepts.Veggie;
 import pointcards.game.pointsalad.criteria.ICriteria;
 import pointcards.game.pointsalad.criteria.criterias.CriteriaMost;
 import pointcards.game.pointsalad.manifest.json.JSONManifestParser;
+import pointcards.game.pointsalad.participants.HumanPlayer;
 import pointcards.io.JSONFileReader;
 
 public class TestUtils {

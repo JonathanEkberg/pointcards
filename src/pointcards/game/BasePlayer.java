@@ -9,9 +9,8 @@ import pointcards.io.output.IOutput;
  * attributes for the player's name, input, and output.
  */
 public class BasePlayer extends Participant {
-    private final String name;
-    final IInput input;
-    final IOutput output;
+    private final IInput input;
+    private final IOutput output;
 
     /**
      * Constructs a new BasePlayer with the specified name, input, and output.
@@ -21,18 +20,9 @@ public class BasePlayer extends Participant {
      * @param output the output interface for the player
      */
     public BasePlayer(String name, final IInput input, final IOutput output) {
-        this.name = name;
+        super(name);
         this.input = input;
         this.output = output;
-    }
-
-    /**
-     * Returns the name of the player.
-     *
-     * @return the name of the player
-     */
-    public String getName() {
-        return name;
     }
 
     /**

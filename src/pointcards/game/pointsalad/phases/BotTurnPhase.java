@@ -2,9 +2,9 @@ package pointcards.game.pointsalad.phases;
 
 import java.util.Optional;
 
-import pointcards.game.pointsalad.Bot;
 import pointcards.game.pointsalad.GameState;
-import pointcards.game.pointsalad.HumanPlayer;
+import pointcards.game.pointsalad.participants.Bot;
+import pointcards.game.pointsalad.participants.HumanPlayer;
 import pointcards.utils.Logger;
 import pointcards.game.IPhase;
 import pointcards.game.Participant;

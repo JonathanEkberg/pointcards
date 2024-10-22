@@ -2,7 +2,7 @@ package pointcards.game.pointsalad.manifest.json;
 
 import java.util.List;
 
-import pointcards.game.pointsalad.Card;
+import pointcards.game.pointsalad.concepts.Card;
 
 /**
  * The `IJSONCardParser` interface defines the methods for parsing cards from a

@@ -20,23 +20,12 @@ package pointcards.game;
  * @see Participant
  */
 public class BaseBot extends Participant {
-    private final String name;
-
     /**
      * Constructs a new `BaseBot` with the specified name.
      * 
      * @param name The name of the bot.
      */
     public BaseBot(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Returns the name of the bot.
-     * 
-     * @return The name of the bot.
-     */
-    public String getName() {
-        return name;
+        super(name);
     }
 }

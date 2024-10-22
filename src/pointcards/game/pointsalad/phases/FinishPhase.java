@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.GameState;
-import pointcards.game.pointsalad.Hand;
-import pointcards.game.pointsalad.IPlayer;
+import pointcards.game.pointsalad.concepts.Card;
+import pointcards.game.pointsalad.concepts.Hand;
+import pointcards.game.pointsalad.participants.IPlayer;
 import pointcards.utils.Logger;
 import pointcards.game.IPhase;
 

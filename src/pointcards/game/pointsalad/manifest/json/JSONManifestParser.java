@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import pointcards.game.pointsalad.Card;
+import pointcards.game.pointsalad.concepts.Card;
 import pointcards.game.pointsalad.manifest.json.versions.Version;
 
 /**
@@ -74,6 +74,7 @@ public class JSONManifestParser {
      * @return `true` if the manifest is valid, otherwise `false`.
      */
     private boolean isValid() {
+        // Implement proper validation logic per version
         return true;
     }
 
@@ -83,7 +84,7 @@ public class JSONManifestParser {
      * @return The list of cards.
      * @throws Exception if an error occurs while parsing the cards.
      */
-    public List<Card> getCards() throws Exception {
+    public List<Card> getCards() {
         return this.cardParser.parseCards();
     }
 

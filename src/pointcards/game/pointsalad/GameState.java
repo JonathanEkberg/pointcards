@@ -3,6 +3,13 @@ package pointcards.game.pointsalad;
 import java.util.ArrayList;
 import java.util.List;
 import pointcards.game.BaseGameState;
+import pointcards.game.pointsalad.concepts.Card;
+import pointcards.game.pointsalad.concepts.Deck;
+import pointcards.game.pointsalad.concepts.Decks;
+import pointcards.game.pointsalad.concepts.Market;
+import pointcards.game.pointsalad.participants.Bot;
+import pointcards.game.pointsalad.participants.HumanPlayer;
+import pointcards.game.pointsalad.participants.IPlayer;
 import pointcards.utils.Logger;
 
 /**
@@ -31,15 +38,14 @@ import pointcards.utils.Logger;
  * }
  * </pre>
  * 
- * @see pointcards.game.pointsalad.Decks
- * @see pointcards.game.pointsalad.Market
+ * @see pointcards.game.pointsalad.concepts.Decks
+ * @see pointcards.game.pointsalad.concepts.Market
  * @see pointcards.game.pointsalad.GameStatePrinter
  */
 public class GameState extends BaseGameState {
     private Decks decks;
     private Market market;
     private GameStatePrinter printer;
-
     private final List<IPlayer> players;
 
     public GameState(List<HumanPlayer> players, List<Bot> bots, Deck deck) {

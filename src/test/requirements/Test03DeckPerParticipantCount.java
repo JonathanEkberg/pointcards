@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import pointcards.game.pointsalad.Card;
 import pointcards.game.pointsalad.GameFactory;
+import pointcards.game.pointsalad.concepts.Card;
 import test.utils.TestUtils;
 
 public class Test03DeckPerParticipantCount {

@@ -1,4 +1,6 @@
-package pointcards.game.pointsalad;
+package pointcards.game.pointsalad.participants;
+
+import pointcards.game.pointsalad.concepts.Hand;
 
 /**
  * The IPlayer interface represents a player in the Point Salad game.

@@ -8,10 +8,10 @@ import java.util.List;
 
 import org.junit.Test;
 
-import pointcards.game.pointsalad.Card;
-import pointcards.game.pointsalad.Deck;
-import pointcards.game.pointsalad.Decks;
 import pointcards.game.pointsalad.GameState;
+import pointcards.game.pointsalad.concepts.Card;
+import pointcards.game.pointsalad.concepts.Deck;
+import pointcards.game.pointsalad.concepts.Decks;
 import pointcards.game.pointsalad.manifest.json.JSONManifestParser;
 import pointcards.game.pointsalad.phases.InitPhase;
 import test.utils.TestUtils;

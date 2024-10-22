@@ -1,4 +1,4 @@
-package pointcards.game.pointsalad;
+package pointcards.game.pointsalad.concepts;
 
 import pointcards.game.concepts.BaseMarket;
 

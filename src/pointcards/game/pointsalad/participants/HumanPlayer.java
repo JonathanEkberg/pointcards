@@ -1,6 +1,10 @@
-package pointcards.game.pointsalad;
+package pointcards.game.pointsalad.participants;
 
 import pointcards.game.BasePlayer;
+import pointcards.game.pointsalad.GameState;
+import pointcards.game.pointsalad.concepts.Card;
+import pointcards.game.pointsalad.concepts.Hand;
+import pointcards.game.pointsalad.concepts.Market;
 import pointcards.io.input.IInput;
 import pointcards.io.output.IOutput;
 import pointcards.utils.Logger;

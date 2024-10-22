@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import pointcards.game.pointsalad.Card;
+import pointcards.game.pointsalad.concepts.Card;
 import pointcards.game.pointsalad.manifest.json.JSONManifestParser;
 import test.utils.TestUtils;
 

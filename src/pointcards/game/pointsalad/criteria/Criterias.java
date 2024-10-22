@@ -1,6 +1,6 @@
 package pointcards.game.pointsalad.criteria;
 
-import pointcards.game.pointsalad.Card;
+import pointcards.game.pointsalad.concepts.Card;
 
 /**
  * The {@code Criterias} class represents a collection of criteria, allowing

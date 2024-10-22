@@ -1,4 +1,4 @@
-package pointcards.game.pointsalad;
+package pointcards.game.pointsalad.concepts;
 
 /**
  * The {@code Veggie} enum represents the different types of vegetables
@@ -28,7 +28,7 @@ package pointcards.game.pointsalad;
  * }
  * </pre>
  * 
- * @see pointcards.game.pointsalad.Card
+ * @see pointcards.game.pointsalad.concepts.Card
  * @see pointcards.game.pointsalad.criteria.ICriteria
  */
 public enum Veggie {

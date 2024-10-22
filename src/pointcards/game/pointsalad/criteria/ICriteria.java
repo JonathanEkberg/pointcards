@@ -1,6 +1,6 @@
 package pointcards.game.pointsalad.criteria;
 
-import pointcards.game.pointsalad.Card;
+import pointcards.game.pointsalad.concepts.Card;
 
 /**
  * The {@code ICriteria} interface defines the methods for calculating points

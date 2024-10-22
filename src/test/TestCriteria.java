@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import pointcards.game.pointsalad.Card;
-import pointcards.game.pointsalad.Veggie;
+import pointcards.game.pointsalad.concepts.Card;
+import pointcards.game.pointsalad.concepts.Veggie;
 import pointcards.game.pointsalad.criteria.ICriteria;
 import pointcards.game.pointsalad.criteria.criterias.CriteriaEven;
 import pointcards.game.pointsalad.criteria.criterias.CriteriaFewest;

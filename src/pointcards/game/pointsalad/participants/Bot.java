@@ -1,16 +1,21 @@
-package pointcards.game.pointsalad;
+package pointcards.game.pointsalad.participants;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import pointcards.game.BaseBot;
+import pointcards.game.pointsalad.GameState;
+import pointcards.game.pointsalad.concepts.Card;
+import pointcards.game.pointsalad.concepts.Deck;
+import pointcards.game.pointsalad.concepts.Hand;
+import pointcards.game.pointsalad.concepts.Market;
 import pointcards.utils.Logger;
 import pointcards.utils.Randomizer;
 
 /**
  * The {@code Bot} class represents a bot player in the Point Salad game.
  * It extends the {@link pointcards.game.BaseBot} class and implements the
- * {@link pointcards.game.pointsalad.IPlayer} interface.
+ * {@link pointcards.game.pointsalad.participants.IPlayer} interface.
  * The bot can take criteria cards or veggie cards during its turn based on the
  * game state.
  */
