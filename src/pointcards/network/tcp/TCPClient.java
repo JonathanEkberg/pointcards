@@ -1,8 +1,10 @@
 package pointcards.network.tcp;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 import pointcards.network.INetworkClient;
 
@@ -13,6 +15,7 @@ import pointcards.network.INetworkClient;
  * the connection.
  */
 public class TCPClient implements INetworkClient {
+    private final Socket socket;
     private final ObjectInputStream in;
     private final ObjectOutputStream out;
 
@@ -24,7 +27,8 @@ public class TCPClient implements INetworkClient {
      * @param out The output stream for sending messages.
      * @throws IOException If an I/O error occurs during initialization.
      */
-    public TCPClient(ObjectInputStream in, ObjectOutputStream out) throws IOException {
+    public TCPClient(Socket socket, ObjectInputStream in, ObjectOutputStream out) throws IOException {
+        this.socket = socket;
         this.in = in;
         this.out = out;
     }
@@ -46,6 +50,7 @@ public class TCPClient implements INetworkClient {
      * Receives a message from the server.
      * 
      * @return The received message as a string.
+     * @throws EOFException If the end of the stream is reached.
      */
     @Override
     public String receive() {
@@ -64,6 +69,7 @@ public class TCPClient implements INetworkClient {
         try {
             this.in.close();
             this.out.close();
+            this.socket.close();
         } catch (IOException e) {
         }
     }

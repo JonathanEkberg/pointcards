@@ -58,17 +58,24 @@ import pointcards.utils.Logger;
  *                     streams.
  */
 public class GameClient {
+    private final Socket socket;
     private final ObjectInputStream in;
     private final ObjectOutputStream out;
     private volatile boolean running = true;
 
     public GameClient(String hostname, int port) throws UnknownHostException, IOException {
         Logger.info("Connecting to " + hostname + " on port " + port);
-        Socket socket = new Socket(hostname, port);
+        this.socket = new Socket(hostname, port);
         Logger.info("Connected");
         this.out = new ObjectOutputStream(socket.getOutputStream());
         this.in = new ObjectInputStream(socket.getInputStream());
+        run();
+        this.socket.close();
+        Logger.info("Closing socket");
+        this.socket.close();
+    }
 
+    private void run() throws IOException {
         // Start a thread for reading messages from the server
         Thread readThread = new Thread(this::readFromServer);
         readThread.start();
@@ -84,8 +91,6 @@ public class GameClient {
             }
         }
         scanner.close();
-        Logger.info("Closing socket");
-        socket.close();
     }
 
     private void readFromServer() {
@@ -100,6 +105,7 @@ public class GameClient {
                     running = false; // Stop when server sends "end"
                 }
             } catch (EOFException e) {
+                Logger.info("Server closed the connection");
                 running = false;
                 break;
             } catch (IOException | ClassNotFoundException e) {
@@ -116,40 +122,3 @@ public class GameClient {
         }
     }
 }
-// public class GameClient {
-// private final ObjectInputStream in;
-// private final ObjectOutputStream out;
-
-// public GameClient(String hostname, int port) throws IOException {
-// Logger.info("Connecting to " + hostname + " on port " + port);
-// Socket socket = new Socket(hostname, port);
-// Logger.info("Connected");
-// this.out = new ObjectOutputStream(socket.getOutputStream());
-// this.in = new ObjectInputStream(socket.getInputStream());
-// String data = "";
-// Logger.debug("Waiting for data...");
-// while (data != "end") {
-// try {
-// // System.out.println("Waiting for data...");
-// data = (String) this.in.readObject();
-// System.out.println(data);
-
-// if (data.toLowerCase().startsWith("enter a")) {
-// Scanner scanner = new Scanner(System.in);
-// Logger.debug("Awaiting user input");
-// String message = scanner.nextLine();
-// Logger.debug("User input: " + message);
-// out.writeObject(message);
-// scanner.close();
-// }
-// // System.out.println();
-// } catch (EOFException e) {
-// break;
-// } catch (ClassNotFoundException e) {
-// e.printStackTrace();
-// }
-// }
-// Logger.info("Closing socket");
-// socket.close();
-// }
-// }

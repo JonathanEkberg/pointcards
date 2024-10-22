@@ -51,14 +51,19 @@ public class TCPServer implements INetworkServer {
                 Logger.debug("Got connection");
                 var inFromClient = new ObjectInputStream(clientSocket.getInputStream());
                 var outToClient = new ObjectOutputStream(clientSocket.getOutputStream());
-                var client = new TCPClient(inFromClient, outToClient);
+                if (left > 1) {
+                    outToClient
+                            .writeObject(String.format(
+                                    "Connected to server. Waiting for %d other user(s) to join before starting.",
+                                    left - 1));
+                }
+                var client = new TCPClient(clientSocket, inFromClient, outToClient);
                 clients.add(client);
             }
 
             this.clients = clients;
             return clients;
         } catch (IOException e) {
-            // TODO: Update error handling
             e.printStackTrace();
             return null;
         }
@@ -70,12 +75,11 @@ public class TCPServer implements INetworkServer {
     @Override
     public void stop() {
         try {
+            this.socket.close();
             for (INetworkClient client : this.clients) {
                 client.close();
             }
-            this.socket.close();
         } catch (IOException e) {
-            // TODO: Update error handling
         }
     }
 }

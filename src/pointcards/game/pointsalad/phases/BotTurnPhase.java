@@ -45,7 +45,7 @@ public class BotTurnPhase implements IPhase {
         Logger.debug(String.format("Bot %s finished turn\n", bot.getName()));
 
         if (state.shouldGameEnd()) {
-            Logger.info("All decks are empty, finishing game");
+            Logger.info("Decks and market empty. Finishing game.");
             return Optional.of(new FinishPhase(state));
         }
 

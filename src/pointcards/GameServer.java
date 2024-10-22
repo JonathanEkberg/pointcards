@@ -88,4 +88,19 @@ public class GameServer {
     public void run() {
         this.game.run();
     }
+
+    /**
+     * Closes the server and stops the game.
+     */
+    public void close() {
+        this.server.stop();
+    }
+
+    public static class ExitGameException extends RuntimeException {
+        private static final long serialVersionUID = 1L;
+
+        public ExitGameException(String message) {
+            super(message);
+        }
+    }
 }

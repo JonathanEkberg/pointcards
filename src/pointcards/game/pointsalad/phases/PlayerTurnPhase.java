@@ -50,16 +50,8 @@ public class PlayerTurnPhase implements IPhase {
         printTurnGameState(player);
         player.doTurn(state);
 
-        boolean allDecksEmpty = true;
-        for (Deck deck : state.getDecks().getDecks()) {
-            if (deck.size() > 0) {
-                allDecksEmpty = false;
-                break;
-            }
-        }
-
-        if (allDecksEmpty) {
-            Logger.info("All decks are empty, finishing game");
+        if (state.shouldGameEnd()) {
+            Logger.info("Decks and market empty. Finishing game.");
             return Optional.of(new FinishPhase(state));
         }
 

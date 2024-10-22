@@ -1,5 +1,10 @@
 package pointcards.game.pointsalad.participants;
 
+import java.io.EOFException;
+
+import javax.management.RuntimeErrorException;
+
+import pointcards.GameServer;
 import pointcards.game.BasePlayer;
 import pointcards.game.pointsalad.GameState;
 import pointcards.game.pointsalad.concepts.Card;
@@ -31,8 +36,19 @@ public class HumanPlayer extends BasePlayer implements IPlayer {
         String choice = input.queryString(
                 "Take either one point card (Syntax example: 2) or up to two vegetable cards (Syntax example: CF)");
 
+        if (choice == null) {
+            throw new GameServer.ExitGameException("User disconnected. Exiting the game.");
+        }
+
         try {
             int parsed = Integer.parseInt(choice);
+
+            if (parsed < 0 || parsed > 2) {
+                getOutput()
+                        .send("Invalid input. Please enter an integer between 0 and 2 if you want to take a point card.");
+                this.doTurn(state);
+                return;
+            }
 
             if (state.getDecks().getDeck(parsed).size() == 0) {
                 getOutput().send("No cards in deck " + parsed);
@@ -57,7 +73,9 @@ public class HumanPlayer extends BasePlayer implements IPlayer {
         StringBuilder sb = new StringBuilder(2);
         for (char c : chars) {
             if (c < 'a' || c > 'f') {
-                throw new RuntimeException("Bad character choice");
+                getOutput().send("Invalid input. Please two characters between A-F.");
+                this.doTurn(state);
+                return;
             }
             sb.append(c);
         }

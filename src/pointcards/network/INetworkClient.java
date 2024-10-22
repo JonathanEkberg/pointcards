@@ -1,5 +1,7 @@
 package pointcards.network;
 
+import java.io.EOFException;
+
 /**
  * The `INetworkClient` interface defines the methods that a network client must
  * implement.
@@ -11,6 +13,7 @@ public interface INetworkClient {
      * Receives a message from the server.
      * 
      * @return The received message as a string.
+     * @throws EOFException If the end of the stream is reached.
      */
     public String receive();
 

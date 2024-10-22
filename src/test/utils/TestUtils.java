@@ -1,5 +1,6 @@
 package test.utils;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import pointcards.game.pointsalad.participants.HumanPlayer;
 import pointcards.io.JSONFileReader;
 
 public class TestUtils {
-    public static JSONManifestParser getManifestParser(String manifestPath) throws Exception {
+    public static JSONManifestParser getManifestParser(String manifestPath) throws FileNotFoundException {
         JSONFileReader reader = new JSONFileReader();
         JSONObject manifest = reader.readJSONFile(manifestPath);
         return new JSONManifestParser(manifest);

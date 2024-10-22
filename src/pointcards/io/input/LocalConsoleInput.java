@@ -16,7 +16,7 @@ public class LocalConsoleInput implements IInput {
      */
     @Override
     public String queryString(String message) {
-        System.out.println(message);
+        System.out.printf("%s: ", message);
         return scanner.nextLine();
     }
 
@@ -28,7 +28,7 @@ public class LocalConsoleInput implements IInput {
      */
     @Override
     public int queryInt(String query) {
-        System.out.println(query);
+        System.out.printf("%s: ", query);
         return scanner.nextInt();
     }
 
