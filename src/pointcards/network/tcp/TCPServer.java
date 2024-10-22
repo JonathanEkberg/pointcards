@@ -75,10 +75,13 @@ public class TCPServer implements INetworkServer {
     @Override
     public void stop() {
         try {
-            this.socket.close();
-            for (INetworkClient client : this.clients) {
-                client.close();
+            if (this.clients != null && !this.clients.isEmpty()) {
+                for (INetworkClient client : this.clients) {
+                    client.close();
+                }
             }
+
+            this.socket.close();
         } catch (IOException e) {
         }
     }
