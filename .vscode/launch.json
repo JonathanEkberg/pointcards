@@ -6,11 +6,19 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Main",
+            "name": "Run server",
             "request": "launch",
             "mainClass": "pointcards.Main",
             "projectName": "pointcards_ed4dd63a",
             "args": "--type server --manifest-path ./PSManifestV1.json --players 2 --bots 0"
+        },
+        {
+            "type": "java",
+            "name": "Run client",
+            "request": "launch",
+            "mainClass": "pointcards.Main",
+            "projectName": "pointcards_ed4dd63a",
+            "args": "--type client"
         },
         {
             "type": "java",
