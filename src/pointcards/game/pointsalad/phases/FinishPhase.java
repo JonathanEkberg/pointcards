@@ -69,13 +69,11 @@ public class FinishPhase implements IPhase {
         }
 
         IPlayer winner = sortedScores.get(sortedScores.size() - 1).getKey();
-        String part = String.format("Player %s wins!\n", winner.getName());
-        Logger.debug(part);
+        String part = String.format("\nPlayer %s wins!\n", winner.getName());
         message.append(part);
-
         state.sendMessageToAllPlayers(message.toString());
-        // Logger.debug(message.toString());
 
+        // End the game. No more phases to run.
         return Optional.empty();
     }
 }
