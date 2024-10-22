@@ -44,7 +44,7 @@ public class PlayerTurnPhase implements IPhase {
     public Optional<IPhase> run() {
         HumanPlayer player = (HumanPlayer) state.turner.getTurn();
 
-        String message = String.format("Player %s is playing\n", player.getName());
+        String message = String.format("********************************\nPlayer %s is playing\n", player.getName());
         state.sendMessageToOtherPlayers(player, message);
 
         printTurnGameState(player);

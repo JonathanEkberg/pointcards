@@ -38,8 +38,9 @@ public class BotTurnPhase implements IPhase {
     public Optional<IPhase> run() {
         Bot bot = (Bot) state.turner.getTurn();
 
-        String message = String.format("Bot %s is playing\n", bot.getName());
+        String message = String.format("********************************\nBot %s is playing\n", bot.getName());
         Logger.debug(message);
+
         state.sendMessageToAllPlayers(message);
         bot.doTurn(state);
         Logger.debug(String.format("Bot %s finished turn\n", bot.getName()));
