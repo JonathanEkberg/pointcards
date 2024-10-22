@@ -13,7 +13,6 @@ echo "
 Running requirements tests..."
 for file in src/test/requirements/*.java
 do
-    
     # Convert to only filename withbin the .java extension
     NAME=$(basename $file .java)
     echo "
