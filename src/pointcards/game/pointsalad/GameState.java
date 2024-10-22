@@ -126,6 +126,11 @@ public class GameState extends BaseGameState {
         Decks decks = getDecks();
         boolean existsDeckWithZeroCards = false;
 
+        // Can't refill when all decks are empty
+        if (decks.allEmptyDecks()) {
+            return;
+        }
+
         for (Deck deck : decks.getDecks()) {
             if (deck.size() == 0) {
                 existsDeckWithZeroCards = true;
@@ -141,7 +146,7 @@ public class GameState extends BaseGameState {
     }
 
     /**
-     * Refills the market with non-empty cards from the decks.
+     * Refills the market when no decks are empty.
      */
     private void refillWithNonEmpty() {
         for (int i = 0; i < 6; i++) {
@@ -159,7 +164,7 @@ public class GameState extends BaseGameState {
     }
 
     /**
-     * Refills the market with empty cards.
+     * Refills the market when one or more decks are empty.
      */
     private void refillWithEmpty() {
         Market market = getMarket();
@@ -210,7 +215,7 @@ public class GameState extends BaseGameState {
         }
 
         deck = decks.getDeck(columnWithMostCards);
-        assert deck.size() > 0 : "Deck with most cards is empty";
+        // assert deck.size() > 0 : "Deck with most cards is empty";
 
         Card card = deck.takeFromBottom().get();
         market.addCard(column, row, card);
