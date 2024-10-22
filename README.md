@@ -73,6 +73,17 @@ Run all unit tests with:
 
 ## Developing
 
+### Restore git history
+
+If you don't have access to GitHub the repo with its history can be recreated with:
+```sh
+git clone ./pointcards.bundle pointcards-with-history
+```
+
+The folder 'pointcards-with-history' will then have all the code + .git for commit history.
+
+### Updating
+
 When adding new game modes you can create the new game modes package in the same level as the "pointsalad" package.
 So for Point City game mode you could create a "pointcity" package.
 Then implement the game factory for it along with all the required components which the game might use and update the game factory used in [Main.java](./src/pointcards/Main.java).
