@@ -62,8 +62,14 @@ public class HumanPlayer extends BasePlayer implements IPlayer {
         } catch (NumberFormatException e) {
         }
 
-        if (choice.length() != 2) {
+        if (state.getMarket().size() > 1 && choice.length() != 2) {
             getOutput().send("Invalid input. Please enter exactly two characters.");
+            this.doTurn(state);
+            return;
+        }
+
+        if (state.getMarket().size() == 1 && choice.length() != 1) {
+            getOutput().send("Invalid input. You must take the last item from the market.");
             this.doTurn(state);
             return;
         }
@@ -81,7 +87,13 @@ public class HumanPlayer extends BasePlayer implements IPlayer {
         }
 
         Logger.debug("User input: " + sb.toString());
-        handleTakeMarketCards(state, chars);
+        try {
+            handleTakeMarketCards(state, chars);
+        } catch (IllegalArgumentException e) {
+            getOutput().send(e.getMessage());
+            this.doTurn(state);
+            return;
+        }
         checkCriteriaCardConversion(state);
     }
 
@@ -156,7 +168,7 @@ public class HumanPlayer extends BasePlayer implements IPlayer {
         }
     }
 
-    private void handleTakeMarketCards(GameState state, char[] choices) {
+    private void handleTakeMarketCards(GameState state, char[] choices) throws IllegalArgumentException {
         Market market = state.getMarket();
 
         for (char choice : choices) {
@@ -166,7 +178,7 @@ public class HumanPlayer extends BasePlayer implements IPlayer {
             int rowIdx = coords[1];
 
             if (!market.hasCard(columnIdx, rowIdx)) {
-                throw new RuntimeException("No card at position " + choice);
+                throw new IllegalArgumentException("No card at position " + choice);
             }
 
             Logger.debug("Taking card at " + columnIdx + ", " + rowIdx);
